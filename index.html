@@ -6,62 +6,52 @@
 
     <title>NIJOK Odisha | Discover the Soul of Odisha</title>
 
-    <meta name="description"
-        content="Explore Odisha's ancient temples, golden beaches, rich culture, traditional cuisine, wildlife and timeless heritage with NIJOK Odisha.">
+    <meta
+        name="description"
+        content="Discover Odisha's temples, beaches, wildlife, cuisine, handicrafts, tribes, festivals and timeless traditions with NIJOK Odisha."
+    >
 
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
-        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 
+    <!-- Main CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<!-- =========================================================
+<!-- =====================================================
      HEADER
-========================================================= -->
+===================================================== -->
 
-<header class="site-header">
+<header class="site-header" id="siteHeader">
 
-    <div class="header-container">
+    <div class="container header-inner">
 
-        <a href="index.html" class="brand">
-
-            <div class="brand-leaf">
-                <i class="fa-solid fa-leaf"></i>
-            </div>
-
-            <div class="brand-name">
-                NIJOK
-            </div>
-
-            <div class="brand-divider"></div>
-
-            <div class="odisha-brand">
-
-                <div class="odisha-emblem">
-                    <i class="fa-solid fa-sun"></i>
-                </div>
-
-                <div>
-                    <strong>ODISHA</strong>
-                    <span>Helping People</span>
-                </div>
-
-            </div>
-
+        <!-- LOGO -->
+        <a href="index.html" class="logo" aria-label="NIJOK Odisha Home">
+            <span class="logo-main">NIJOK ODISHA</span>
+            <span class="logo-sub">Helping People</span>
         </a>
 
-
+        <!-- NAVIGATION -->
         <nav class="main-nav" id="mainNav">
 
-            <a href="index.html" class="active">Home</a>
+            <a href="index.html" class="active">
+                Home
+            </a>
 
             <a href="destinations.html">
                 Discover Odisha
@@ -97,216 +87,172 @@
 
         </nav>
 
-
+        <!-- HEADER ACTIONS -->
         <div class="header-actions">
 
-            <div class="search-box">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
+            <form class="search-box" id="searchForm">
 
                 <input
-                    type="text"
-                    id="siteSearch"
+                    type="search"
+                    id="searchInput"
                     placeholder="Search places, food, culture..."
-                    autocomplete="off">
+                    autocomplete="off"
+                    aria-label="Search NIJOK Odisha"
+                >
 
-            </div>
+                <button
+                    type="submit"
+                    aria-label="Search"
+                >
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
 
+            </form>
 
-            <button class="language-btn">
-                <i class="fa-solid fa-globe"></i>
-                <span>EN</span>
-                <i class="fa-solid fa-chevron-down"></i>
+            <button
+                class="language-btn"
+                type="button"
+                aria-label="Select language"
+            >
+                EN
             </button>
 
-
             <a href="contact.html" class="support-btn">
-                <i class="fa-regular fa-heart"></i>
                 Support / Donate
             </a>
 
+            <button
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                type="button"
+                aria-label="Open menu"
+                aria-expanded="false"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
         </div>
-
-
-        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
 
     </div>
 
 </header>
 
 
-<!-- =========================================================
-     HERO
-========================================================= -->
+<!-- =====================================================
+     SEARCH RESULTS
+===================================================== -->
+
+<div class="search-results" id="searchResults">
+
+    <h3>Search NIJOK Odisha</h3>
+
+    <p>
+        Start typing to search destinations and experiences.
+    </p>
+
+</div>
+
 
 <main>
 
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
 <section class="hero">
 
-    <div class="hero-image"></div>
+    <div class="hero-inner">
 
-    <div class="hero-overlay"></div>
+        <div class="hero-content">
 
+            <div class="hero-kicker">
+                Land of Temples, Beaches, Tribes &amp; Timeless Traditions.
+            </div>
 
-    <div class="hero-side-text hero-left-text">
+            <div class="hero-brand">
+                NIJOK ODISHA
+            </div>
 
-        <span>Land of</span>
-        <span>Temples, Beaches,</span>
-        <span>Tribes &amp; Timeless</span>
-        <span>Traditions.</span>
+            <h1>
+                From Ancient Temples
+                <br>
+                to Golden Beaches.
+            </h1>
 
-        <div class="hand-line"></div>
+            <p>
+                Explore Odisha's rich culture, diverse cuisine, vibrant
+                traditions and breathtaking destinations. Discover a land
+                where heritage meets nature, and every journey tells a story.
+            </p>
 
-        <i class="fa-regular fa-heart"></i>
+            <div class="hero-btns">
 
-    </div>
+                <a href="destinations.html" class="btn-primary">
+                    Explore Odisha
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
 
+                <a href="#featured" class="btn-secondary">
+                    Discover More
+                </a>
 
-    <div class="hero-content">
-
-        <div class="hero-kicker">
-
-            <strong>NIJOK</strong>
-
-            <span></span>
-
-            <strong>ODISHA</strong>
-
-            <div class="mini-sun">
-                <i class="fa-solid fa-sun"></i>
             </div>
 
         </div>
 
-
-        <h1>
-            From Ancient Temples<br>
-            to Golden Beaches.
-        </h1>
-
-
-        <p>
-            Explore Odisha's rich culture, diverse cuisine, vibrant traditions
-            and breathtaking destinations. Discover a land where heritage
-            meets nature, and every journey tells a story.
-        </p>
-
-
-        <a href="destinations.html" class="primary-btn">
-
-            Explore Odisha
-
-            <i class="fa-solid fa-arrow-right"></i>
-
-        </a>
-
     </div>
 
-
-    <div class="hero-side-text hero-right-text">
-
-        <span>Same Land.</span>
-        <span>So Many</span>
-        <span>Stories.</span>
-
-        <i class="fa-regular fa-heart"></i>
-
+    <div class="hero-decoration">
+        Same Land. So Many Stories.
     </div>
 
 </section>
 
 
-<!-- =========================================================
-     STATISTICS
-========================================================= -->
+<!-- =====================================================
+     STATS
+===================================================== -->
 
 <section class="stats-section">
 
-    <div class="stats-container">
+    <div class="container">
 
+        <div class="stats-card">
 
-        <div class="stat-item">
-
-            <div class="stat-icon">
-                <i class="fa-solid fa-users"></i>
+            <div class="stat-item">
+                <span class="stat-number">4,700,000+</span>
+                <span class="stat-label">
+                    People Supported
+                </span>
             </div>
 
-            <div>
-                <strong>4,700,000+</strong>
-                <span>People Supported</span>
+            <div class="stat-item">
+                <span class="stat-number">314+</span>
+                <span class="stat-label">
+                    Tourist Destinations
+                </span>
             </div>
 
-        </div>
-
-
-        <div class="stat-item">
-
-            <div class="stat-icon">
-                <i class="fa-solid fa-location-dot"></i>
+            <div class="stat-item">
+                <span class="stat-number">320+</span>
+                <span class="stat-label">
+                    Traditional Dishes
+                </span>
             </div>
 
-            <div>
-                <strong>314+</strong>
-                <span>Tourist Destinations</span>
+            <div class="stat-item">
+                <span class="stat-number">700+</span>
+                <span class="stat-label">
+                    Temples &amp; Heritage Sites
+                </span>
             </div>
 
-        </div>
-
-
-        <div class="stat-item">
-
-            <div class="stat-icon">
-                <i class="fa-solid fa-plate-wheat"></i>
-            </div>
-
-            <div>
-                <strong>320+</strong>
-                <span>Traditional Dishes</span>
-            </div>
-
-        </div>
-
-
-        <div class="stat-item">
-
-            <div class="stat-icon">
-                <i class="fa-solid fa-landmark"></i>
-            </div>
-
-            <div>
-                <strong>700+</strong>
-                <span>Temples &amp; Heritage Sites</span>
-            </div>
-
-        </div>
-
-
-        <div class="stat-item">
-
-            <div class="stat-icon">
-                <i class="fa-solid fa-people-group"></i>
-            </div>
-
-            <div>
-                <strong>62</strong>
-                <span>Tribal Communities</span>
-            </div>
-
-        </div>
-
-
-        <div class="odisha-stat">
-
-            <div class="odisha-map">
-                <i class="fa-solid fa-map"></i>
-            </div>
-
-            <div>
-                <strong>ODISHA</strong>
-                <span>Rich Culture</span>
-                <span>Endless Experiences</span>
+            <div class="stat-item">
+                <span class="stat-number">62</span>
+                <span class="stat-label">
+                    Tribal Communities
+                </span>
             </div>
 
         </div>
@@ -316,156 +262,158 @@
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      CATEGORY NAVIGATION
-========================================================= -->
+===================================================== -->
 
-<section class="category-section">
+<section class="categories-section">
 
-    <div class="category-container">
+    <div class="container">
 
+        <div class="category-list">
 
-        <a href="temples.html" class="category-card">
+            <!-- Temples -->
+            <a href="temples.html" class="category-item">
 
-            <div class="category-icon">
-                <i class="fa-solid fa-landmark"></i>
-            </div>
+                <span class="category-icon">
+                    <i class="fa-solid fa-gopuram"></i>
+                </span>
 
-            <div>
-                <strong>Temples</strong>
-                <span>Sacred &amp; Historical</span>
-            </div>
+                <span>Temples</span>
 
-        </a>
-
-
-        <a href="beaches.html" class="category-card">
-
-            <div class="category-icon">
-                <i class="fa-solid fa-water"></i>
-            </div>
-
-            <div>
-                <strong>Beaches</strong>
-                <span>Sun, Sand &amp; Sea</span>
-            </div>
-
-        </a>
+            </a>
 
 
-        <a href="wildlife.html" class="category-card">
+            <!-- Beaches -->
+            <a href="beaches.html" class="category-item">
 
-            <div class="category-icon">
-                <i class="fa-solid fa-tree"></i>
-            </div>
+                <span class="category-icon">
+                    <i class="fa-solid fa-umbrella-beach"></i>
+                </span>
 
-            <div>
-                <strong>Wildlife</strong>
-                <span>Forests &amp; Biodiversity</span>
-            </div>
+                <span>Beaches</span>
 
-        </a>
+            </a>
 
 
-        <a href="food-culture.html" class="category-card">
+            <!-- Wildlife -->
+            <a href="wildlife.html" class="category-item">
 
-            <div class="category-icon">
-                <i class="fa-solid fa-bowl-food"></i>
-            </div>
+                <span class="category-icon">
+                    <i class="fa-solid fa-paw"></i>
+                </span>
 
-            <div>
-                <strong>Cuisine</strong>
-                <span>Taste the Tradition</span>
-            </div>
+                <span>Wildlife</span>
 
-        </a>
+            </a>
 
 
-        <a href="food-culture.html" class="category-card">
+            <!-- Cuisine -->
+            <a href="food-culture.html" class="category-item">
 
-            <div class="category-icon">
-                <i class="fa-solid fa-palette"></i>
-            </div>
+                <span class="category-icon">
+                    <i class="fa-solid fa-bowl-food"></i>
+                </span>
 
-            <div>
-                <strong>Handicrafts</strong>
-                <span>Art &amp; Heritage</span>
-            </div>
+                <span>Cuisine</span>
 
-        </a>
+            </a>
 
 
-        <a href="regions.html" class="category-card">
+            <!-- Handicrafts -->
+            <a href="food-culture.html" class="category-item">
 
-            <div class="category-icon">
-                <i class="fa-solid fa-mask-face"></i>
-            </div>
+                <span class="category-icon">
+                    <i class="fa-solid fa-palette"></i>
+                </span>
 
-            <div>
-                <strong>Tribes</strong>
-                <span>People &amp; Culture</span>
-            </div>
+                <span>Handicrafts</span>
 
-        </a>
+            </a>
 
 
-        <a href="food-culture.html" class="category-card">
+            <!-- Tribes -->
+            <a href="regions.html" class="category-item">
 
-            <div class="category-icon">
-                <i class="fa-solid fa-drum"></i>
-            </div>
+                <span class="category-icon">
+                    <i class="fa-solid fa-people-group"></i>
+                </span>
 
-            <div>
-                <strong>Festivals</strong>
-                <span>Joy &amp; Celebration</span>
-            </div>
+                <span>Tribes</span>
 
-        </a>
+            </a>
 
 
-        <a href="regions.html" class="category-card">
+            <!-- Festivals -->
+            <a href="food-culture.html" class="category-item">
 
-            <div class="category-icon">
-                <i class="fa-solid fa-map-location-dot"></i>
-            </div>
+                <span class="category-icon">
+                    <i class="fa-solid fa-drum"></i>
+                </span>
 
-            <div>
-                <strong>Regions</strong>
-                <span>Explore All</span>
-            </div>
+                <span>Festivals</span>
 
-        </a>
+            </a>
 
 
-        <a href="destinations.html" class="explore-category">
+            <!-- Regions -->
+            <a href="regions.html" class="category-item">
 
-            <strong>Explore</strong>
-            <span>Odisha</span>
+                <span class="category-icon">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </span>
 
-            <i class="fa-solid fa-arrow-right"></i>
+                <span>Regions</span>
 
-        </a>
+            </a>
+
+
+            <!-- Explore -->
+            <a href="destinations.html" class="category-item">
+
+                <span class="category-icon">
+                    <i class="fa-solid fa-compass"></i>
+                </span>
+
+                <span>Explore Odisha</span>
+
+            </a>
+
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- =========================================================
-     MAIN CONTENT
-========================================================= -->
+<!-- =====================================================
+     FEATURED DESTINATIONS
+===================================================== -->
 
-<section class="home-content">
+<section class="section featured-section" id="featured">
 
-    <div class="destinations-area">
+    <div class="container">
 
-        <div class="section-heading">
+        <div class="section-header">
 
             <div>
-                <h2>Featured Destinations</h2>
+
+                <div class="section-kicker">
+                    Explore Odisha
+                </div>
+
+                <h2 class="section-title">
+                    Featured Destinations
+                </h2>
+
+                <p class="section-description">
+                    Discover sacred temples, peaceful lakes, golden beaches
+                    and extraordinary landscapes across Odisha.
+                </p>
+
             </div>
 
-            <a href="destinations.html">
+            <a href="destinations.html" class="view-all">
                 View All
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -476,540 +424,604 @@
         <div class="destination-grid">
 
 
+            <!-- DESTINATION 1 -->
             <a href="temples.html" class="destination-card">
 
-                <div class="destination-image">
-                    <img
-                        src="https://images.unsplash.com/photo-1600100397608-f010e7a3f4f1?auto=format&fit=crop&w=800&q=85"
-                        alt="Jagannath Temple">
-                </div>
+                <img
+                    src="https://images.unsplash.com/photo-1600100397608-f010c47a9d22?auto=format&fit=crop&w=900&q=85"
+                    alt="Jagannath Temple in Puri"
+                    loading="lazy"
+                >
 
-                <div class="destination-info">
+                <div class="destination-content">
 
-                    <h3>Jagannath Temple</h3>
-
-                    <span class="location">
-                        <i class="fa-solid fa-location-dot"></i>
+                    <span class="destination-location">
                         Puri
                     </span>
 
-                    <div class="tags">
-                        <span>Temple</span>
-                        <span>Heritage</span>
-                        <span>Culture</span>
-                    </div>
+                    <h3>
+                        Jagannath Temple
+                    </h3>
+
+                    <p>
+                        Temple • Heritage • Culture
+                    </p>
 
                 </div>
 
             </a>
 
 
+            <!-- DESTINATION 2 -->
             <a href="temples.html" class="destination-card">
 
-                <div class="destination-image">
+                <img
+                    src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=900&q=85"
+                    alt="Konark Sun Temple"
+                    loading="lazy"
+                >
 
-                    <img
-                        src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=85"
-                        alt="Konark Sun Temple">
+                <div class="destination-content">
 
-                </div>
-
-                <div class="destination-info">
-
-                    <h3>Konark Sun Temple</h3>
-
-                    <span class="location">
-                        <i class="fa-solid fa-location-dot"></i>
+                    <span class="destination-location">
                         Konark
                     </span>
 
-                    <div class="tags">
-                        <span>Heritage</span>
-                        <span>Architecture</span>
-                        <span>History</span>
-                    </div>
+                    <h3>
+                        Konark Sun Temple
+                    </h3>
+
+                    <p>
+                        Heritage • Architecture • History
+                    </p>
 
                 </div>
 
             </a>
 
 
+            <!-- DESTINATION 3 -->
             <a href="beaches.html" class="destination-card">
 
-                <div class="destination-image">
+                <img
+                    src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85"
+                    alt="Chilika Lake and coastal landscape"
+                    loading="lazy"
+                >
 
-                    <img
-                        src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=85"
-                        alt="Chilika Lake">
+                <div class="destination-content">
 
-                </div>
-
-                <div class="destination-info">
-
-                    <h3>Chilika Lake</h3>
-
-                    <span class="location">
-                        <i class="fa-solid fa-location-dot"></i>
+                    <span class="destination-location">
                         Chilika
                     </span>
 
-                    <div class="tags">
-                        <span>Nature</span>
-                        <span>Birds</span>
-                        <span>Adventure</span>
-                    </div>
+                    <h3>
+                        Chilika Lake
+                    </h3>
+
+                    <p>
+                        Nature • Birds • Adventure
+                    </p>
 
                 </div>
 
             </a>
 
 
+            <!-- DESTINATION 4 -->
             <a href="wildlife.html" class="destination-card">
 
-                <div class="destination-image">
+                <img
+                    src="https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=900&q=85"
+                    alt="Wildlife and forest landscape"
+                    loading="lazy"
+                >
 
-                    <img
-                        src="https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=800&q=85"
-                        alt="Wildlife in Odisha">
+                <div class="destination-content">
 
-                </div>
-
-                <div class="destination-info">
-
-                    <h3>Similipal National Park</h3>
-
-                    <span class="location">
-                        <i class="fa-solid fa-location-dot"></i>
+                    <span class="destination-location">
                         Mayurbhanj
                     </span>
 
-                    <div class="tags">
-                        <span>Wildlife</span>
-                        <span>Forest</span>
-                        <span>Adventure</span>
-                    </div>
+                    <h3>
+                        Similipal National Park
+                    </h3>
+
+                    <p>
+                        Wildlife • Forest • Adventure
+                    </p>
 
                 </div>
 
             </a>
 
 
+            <!-- DESTINATION 5 -->
             <a href="beaches.html" class="destination-card">
 
-                <div class="destination-image">
+                <img
+                    src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85"
+                    alt="Puri Beach"
+                    loading="lazy"
+                >
 
-                    <img
-                        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=85"
-                        alt="Puri Beach">
+                <div class="destination-content">
 
-                </div>
-
-                <div class="destination-info">
-
-                    <h3>Puri Beach</h3>
-
-                    <span class="location">
-                        <i class="fa-solid fa-location-dot"></i>
+                    <span class="destination-location">
                         Puri
                     </span>
 
-                    <div class="tags">
-                        <span>Beach</span>
-                        <span>Relaxation</span>
-                        <span>Food</span>
+                    <h3>
+                        Puri Beach
+                    </h3>
+
+                    <p>
+                        Beach • Relaxation • Food
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOD & CULTURE
+===================================================== -->
+
+<section class="section culture-section">
+
+    <div class="container">
+
+        <div class="culture-layout">
+
+
+            <!-- LEFT -->
+            <div>
+
+                <div class="section-header">
+
+                    <div>
+
+                        <div class="section-kicker">
+                            Discover Odisha
+                        </div>
+
+                        <h2 class="section-title">
+                            Latest Food &amp; Culture
+                        </h2>
+
+                    </div>
+
+                    <a href="food-culture.html" class="view-all">
+                        View All
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+
+                <div class="culture-list">
+
+
+                    <!-- CULTURE ITEM 1 -->
+                    <a href="food-culture.html" class="culture-item">
+
+                        <div class="culture-thumb">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=500&q=85"
+                                alt="Traditional Indian food"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+                        <div>
+
+                            <div class="culture-type">
+                                Food Culture
+                            </div>
+
+                            <h3>
+                                Pakhala Bhata – The Soul Food of Odisha
+                            </h3>
+
+                            <div class="culture-meta">
+                                Sep 16, 2026 &nbsp; • &nbsp; 5 min read
+                            </div>
+
+                        </div>
+
+                        <span class="culture-arrow">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+
+                    </a>
+
+
+                    <!-- CULTURE ITEM 2 -->
+                    <a href="food-culture.html" class="culture-item">
+
+                        <div class="culture-thumb">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=500&q=85"
+                                alt="Dhauli heritage landscape"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+                        <div>
+
+                            <div class="culture-type">
+                                Heritage
+                            </div>
+
+                            <h3>
+                                Dhauli – A Symbol of Peace
+                            </h3>
+
+                            <div class="culture-meta">
+                                Sep 14, 2026 &nbsp; • &nbsp; 4 min read
+                            </div>
+
+                        </div>
+
+                        <span class="culture-arrow">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+
+                    </a>
+
+
+                    <!-- CULTURE ITEM 3 -->
+                    <a href="food-culture.html" class="culture-item">
+
+                        <div class="culture-thumb">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1577083552431-6e5fd01988f5?auto=format&fit=crop&w=500&q=85"
+                                alt="Traditional Indian handicraft art"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+                        <div>
+
+                            <div class="culture-type">
+                                Handicrafts
+                            </div>
+
+                            <h3>
+                                Raghurajpur – The Heritage Village
+                            </h3>
+
+                            <div class="culture-meta">
+                                Sep 12, 2026 &nbsp; • &nbsp; 4 min read
+                            </div>
+
+                        </div>
+
+                        <span class="culture-arrow">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+
+                    </a>
+
+
+                    <!-- CULTURE ITEM 4 -->
+                    <a href="food-culture.html" class="culture-item">
+
+                        <div class="culture-thumb">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=500&q=85"
+                                alt="Traditional Indian dessert"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+                        <div>
+
+                            <div class="culture-type">
+                                Cuisine
+                            </div>
+
+                            <h3>
+                                Chhena Poda – Odisha's Pride
+                            </h3>
+
+                            <div class="culture-meta">
+                                Sep 10, 2026 &nbsp; • &nbsp; 3 min read
+                            </div>
+
+                        </div>
+
+                        <span class="culture-arrow">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+            <div>
+
+                <div class="discover-card">
+
+                    <div class="discover-content">
+
+                        <div class="section-kicker">
+                            Discover
+                        </div>
+
+                        <h2>
+                            The Real Odisha
+                        </h2>
+
+                        <p>
+                            From ancient temples to beautiful beaches,
+                            from tribal art to local cuisine, Odisha has it all.
+                            Plan your journey today!
+                        </p>
+
+                        <a href="destinations.html" class="btn-primary">
+                            Plan Your Trip
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
                     </div>
 
                 </div>
 
-            </a>
+            </div>
 
         </div>
 
-
-        <div class="carousel-dots">
-
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         FOOD & CULTURE
-    ====================================================== -->
-
-    <aside class="culture-area">
-
-        <div class="section-heading">
-
-            <h2>Latest Food &amp; Culture</h2>
-
-            <a href="food-culture.html">
-                View All
-                <i class="fa-solid fa-arrow-right"></i>
-            </a>
-
-        </div>
-
-
-        <div class="culture-list">
-
-
-            <a href="food-culture.html" class="culture-item">
-
-                <img
-                    src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=500&q=85"
-                    alt="Traditional Odisha food">
-
-                <div>
-
-                    <span class="culture-category">
-                        Food Culture
-                    </span>
-
-                    <h3>
-                        Pakhala Bhata – The Soul Food of Odisha
-                    </h3>
-
-                    <small>
-                        Sep 16, 2026 &nbsp; • &nbsp; 5 min read
-                    </small>
-
-                </div>
-
-            </a>
-
-
-            <a href="food-culture.html" class="culture-item">
-
-                <img
-                    src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=500&q=85"
-                    alt="Indian heritage">
-
-                <div>
-
-                    <span class="culture-category">
-                        Heritage
-                    </span>
-
-                    <h3>
-                        Dhauli – A Symbol of Peace
-                    </h3>
-
-                    <small>
-                        Sep 14, 2026 &nbsp; • &nbsp; 4 min read
-                    </small>
-
-                </div>
-
-            </a>
-
-
-            <a href="food-culture.html" class="culture-item">
-
-                <img
-                    src="https://images.unsplash.com/photo-1596450514735-111a2d56f4a4?auto=format&fit=crop&w=500&q=85"
-                    alt="Indian handicrafts">
-
-                <div>
-
-                    <span class="culture-category">
-                        Handicrafts
-                    </span>
-
-                    <h3>
-                        Raghurajpur – The Heritage Village
-                    </h3>
-
-                    <small>
-                        Sep 12, 2026 &nbsp; • &nbsp; 4 min read
-                    </small>
-
-                </div>
-
-            </a>
-
-
-            <a href="food-culture.html" class="culture-item">
-
-                <img
-                    src="https://images.unsplash.com/photo-1627662168223-7df99068099a?auto=format&fit=crop&w=500&q=85"
-                    alt="Traditional Indian sweets">
-
-                <div>
-
-                    <span class="culture-category">
-                        Cuisine
-                    </span>
-
-                    <h3>
-                        Chhena Poda – Odisha's Pride
-                    </h3>
-
-                    <small>
-                        Sep 10, 2026 &nbsp; • &nbsp; 3 min read
-                    </small>
-
-                </div>
-
-            </a>
-
-        </div>
-
-    </aside>
-
-</section>
-
-
-<!-- =========================================================
-     DISCOVER CTA
-========================================================= -->
-
-<section class="discover-section">
-
-    <div class="discover-image"></div>
-
-    <div class="discover-overlay"></div>
-
-
-    <div class="discover-content">
-
-        <span class="discover-small">
-            Discover
-        </span>
-
-        <h2>
-            The Real Odisha
-        </h2>
-
-        <p>
-            From ancient temples to beautiful beaches, from tribal art
-            to local cuisine, Odisha has it all. Plan your journey today!
-        </p>
-
-        <a href="destinations.html" class="discover-btn">
-
-            Plan Your Trip
-
-            <i class="fa-solid fa-arrow-right"></i>
-
-        </a>
-
-    </div>
-
-
-    <div class="discover-note">
-        Good Food. Great People.<br>
-        Amazing Odisha ♡
     </div>
 
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      GET INVOLVED
-========================================================= -->
+===================================================== -->
 
 <section class="involved-section">
 
-    <div class="involved-heading">
+    <div class="container">
 
-        <h2>Get Involved</h2>
+        <div class="involved-card">
 
-        <p>
-            Be part of the change. Support local communities,
-            preserve culture and build a better tomorrow.
-        </p>
+            <div>
 
-    </div>
+                <div class="section-kicker">
+                    Good Food. Great People.
+                </div>
+
+                <h2>
+                    Amazing Odisha ♡
+                </h2>
+
+                <p>
+                    Be part of the change. Support local communities,
+                    preserve culture and build a better tomorrow.
+                </p>
+
+            </div>
 
 
-    <a href="contact.html" class="involved-card">
+            <div class="involved-actions">
 
-        <div class="involved-icon">
-            <i class="fa-solid fa-users"></i>
+                <a href="contact.html" class="involved-link">
+                    <i class="fa-solid fa-hand"></i>
+                    Volunteer
+                    <span>→</span>
+                </a>
+
+                <a href="contact.html" class="involved-link">
+                    <i class="fa-solid fa-handshake"></i>
+                    Partner
+                    <span>→</span>
+                </a>
+
+                <a href="contact.html" class="involved-link">
+                    <i class="fa-solid fa-heart"></i>
+                    Support
+                    <span>→</span>
+                </a>
+
+            </div>
+
         </div>
-
-        <div>
-            <strong>Volunteer</strong>
-            <span>Your time matters →</span>
-        </div>
-
-    </a>
-
-
-    <a href="contact.html" class="involved-card">
-
-        <div class="involved-icon">
-            <i class="fa-solid fa-handshake"></i>
-        </div>
-
-        <div>
-            <strong>Partner</strong>
-            <span>Work with us →</span>
-        </div>
-
-    </a>
-
-
-    <a href="contact.html" class="involved-card">
-
-        <div class="involved-icon">
-            <i class="fa-solid fa-heart"></i>
-        </div>
-
-        <div>
-            <strong>Support</strong>
-            <span>Make a difference →</span>
-        </div>
-
-    </a>
-
-</section>
-
-
-<!-- =========================================================
-     BOTTOM IMAGE STRIP
-========================================================= -->
-
-<section class="bottom-strip">
-
-    <div class="bottom-strip-image"></div>
-
-    <div class="bottom-strip-content">
-
-        <span>
-            Stronger Communities
-        </span>
-
-        <strong>
-            Brighter Future
-        </strong>
 
     </div>
 
 </section>
+
 
 </main>
 
 
-<!-- =========================================================
+<!-- =====================================================
      FOOTER
-========================================================= -->
+===================================================== -->
 
 <footer class="site-footer">
 
-    <div class="footer-main">
+    <div class="footer-top">
 
-        <div class="footer-brand">
+        <div class="container">
 
-            <div class="footer-logo">
+            <div class="footer-grid">
 
-                <i class="fa-solid fa-leaf"></i>
 
-                <strong>NIJOK</strong>
+                <!-- BRAND -->
+                <div class="footer-brand">
 
-                <span></span>
+                    <a href="index.html" class="logo">
 
-                <b>ODISHA</b>
+                        <span class="logo-main">
+                            NIJOK ODISHA
+                        </span>
+
+                        <span class="logo-sub">
+                            Helping People
+                        </span>
+
+                    </a>
+
+                    <p class="footer-description">
+                        Discover Odisha through its people, heritage,
+                        cuisine, nature and timeless traditions.
+                        NIJOK connects people with the real Odisha.
+                    </p>
+
+                </div>
+
+
+                <!-- EXPLORE -->
+                <div>
+
+                    <div class="footer-title">
+                        Explore
+                    </div>
+
+                    <div class="footer-links">
+
+                        <a href="destinations.html">
+                            Destinations
+                        </a>
+
+                        <a href="temples.html">
+                            Temples
+                        </a>
+
+                        <a href="beaches.html">
+                            Beaches
+                        </a>
+
+                        <a href="wildlife.html">
+                            Wildlife
+                        </a>
+
+                        <a href="regions.html">
+                            Regions
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CULTURE -->
+                <div>
+
+                    <div class="footer-title">
+                        Culture
+                    </div>
+
+                    <div class="footer-links">
+
+                        <a href="food-culture.html">
+                            Food &amp; Cuisine
+                        </a>
+
+                        <a href="food-culture.html">
+                            Handicrafts
+                        </a>
+
+                        <a href="food-culture.html">
+                            Festivals
+                        </a>
+
+                        <a href="regions.html">
+                            Tribal Culture
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COMPANY -->
+                <div>
+
+                    <div class="footer-title">
+                        NIJOK
+                    </div>
+
+                    <div class="footer-links">
+
+                        <a href="about.html">
+                            About Us
+                        </a>
+
+                        <a href="contact.html">
+                            Contact
+                        </a>
+
+                        <a href="contact.html">
+                            Volunteer
+                        </a>
+
+                        <a href="contact.html">
+                            Partner With Us
+                        </a>
+
+                        <a href="contact.html">
+                            Support
+                        </a>
+
+                    </div>
+
+                </div>
 
             </div>
 
-            <p>Helping People</p>
-
-        </div>
-
-
-        <div class="footer-links">
-
-            <a href="index.html">Home</a>
-            <a href="destinations.html">Destinations</a>
-            <a href="food-culture.html">Food &amp; Culture</a>
-            <a href="temples.html">Temples</a>
-            <a href="beaches.html">Beaches</a>
-            <a href="wildlife.html">Wildlife</a>
-            <a href="regions.html">Regions</a>
-            <a href="about.html">About Us</a>
-            <a href="contact.html">Contact</a>
-
-        </div>
-
-
-        <div class="footer-social">
-
-            <a href="#" aria-label="Instagram">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-
-            <a href="#" aria-label="YouTube">
-                <i class="fa-brands fa-youtube"></i>
-            </a>
-
-            <a href="#" aria-label="X">
-                <i class="fa-brands fa-x-twitter"></i>
-            </a>
-
-            <a href="#" aria-label="Facebook">
-                <i class="fa-brands fa-facebook-f"></i>
-            </a>
-
-            <a href="#" aria-label="Website">
-                <i class="fa-solid fa-globe"></i>
-            </a>
-
-            <span>EN</span>
-
-            <i class="fa-solid fa-chevron-down"></i>
-
         </div>
 
     </div>
 
+
+    <!-- FOOTER BOTTOM -->
 
     <div class="footer-bottom">
 
-        <span>✦</span>
+        <div class="container footer-bottom-inner">
 
-        Better Food. Healthier People. A Stronger Odisha.
+            <p>
+                © <span id="currentYear"></span>
+                NIJOK Odisha. All rights reserved.
+            </p>
 
-        <span>✦</span>
+            <p class="footer-tagline">
+                ✦ Better Food. Healthier People. A Stronger Odisha. ✦
+            </p>
 
-    </div>
-
-
-    <div class="footer-art">
-
-        <div class="wave wave-one"></div>
-        <div class="wave wave-two"></div>
+        </div>
 
     </div>
 
 </footer>
 
 
-<!-- =========================================================
-     SEARCH RESULTS
-========================================================= -->
-
-<div class="search-results" id="searchResults">
-
-    <div class="search-results-inner">
-
-        <strong>Search NIJOK Odisha</strong>
-
-        <p id="searchMessage">
-            Start typing to search destinations and experiences.
-        </p>
-
-    </div>
-
-</div>
-
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
 <script src="js/main.js"></script>
 
