@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>NIJØK Books — Premium Live Scanner App</title>
+  <title>NIJØK Books — Ultimate Web App</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,129 +15,347 @@
             nijokBg: '#FAF8F0',
             nijokGreen: '#195C40',
             nijokNavy: '#152D3B',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
           }
         }
       }
     }
   </script>
   
-  <!-- HTML5 QR Code Scanner Library for real camera scanning -->
+  <!-- HTML5 QR Code Scanner Library -->
   <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <style>
     body { background-color: #FAF8F0; color: #152D3B; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-    .font-serif { font-family: 'Playfair Display', serif; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     #reader video { width: 100% !important; border-radius: 1rem; object-fit: cover; }
   </style>
 </head>
-<body class="bg-[#FAF8F0] antialiased">
+<body class="bg-[#FAF8F0] antialiased text-[#152D3B]">
 
-  <div class="min-h-screen pb-24 max-w-md mx-auto relative">
+  <div class="min-h-screen pb-28 max-w-md mx-auto relative selection:bg-[#195C40] selection:text-white">
     
-    <!-- Top Header -->
+    <!-- HEADER -->
     <header class="sticky top-0 z-40 bg-[#FAF8F0]/90 backdrop-blur-md px-4 py-3 border-b border-[#152D3B]/10 flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <div class="w-8 h-8 rounded-full bg-[#195C40] text-white font-serif font-bold flex items-center justify-center text-lg">N</div>
+      <div class="flex items-center space-x-2 cursor-pointer" onclick="switchTab('home')">
+        <div class="w-8 h-8 rounded-full bg-[#195C40] text-white font-serif font-bold flex items-center justify-center text-lg shadow-sm">N</div>
         <div>
           <span class="font-serif text-2xl font-bold text-[#195C40] tracking-tight">NIJØK</span>
           <span class="text-[10px] tracking-widest block text-[#152D3B]/60 uppercase font-semibold -mt-1">Books</span>
         </div>
       </div>
-      <div class="flex space-x-2">
-        <button onclick="toggleSearch()" class="p-2.5 bg-white rounded-full border border-gray-200 shadow-sm active:scale-95 transition-all">
+      <div class="flex items-center space-x-2">
+        <button onclick="openSearchModal()" class="p-2.5 bg-white rounded-full border border-[#152D3B]/10 shadow-sm active:scale-95 transition-all">
           <svg class="w-4 h-4 text-[#152D3B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </button>
+        <button onclick="switchTab('profile')" class="w-9 h-9 rounded-full border-2 border-[#195C40] overflow-hidden p-0.5 shadow-sm active:scale-95 transition-all">
+          <img id="userAvatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover rounded-full" />
         </button>
       </div>
     </header>
 
-    <main class="p-4 space-y-4">
+    <!-- TAB 1: HOME / BOOKS DASHBOARD -->
+    <div id="tab-home" class="p-4 space-y-4">
       
-      <!-- Hero Banner -->
-      <div class="relative rounded-3xl overflow-hidden h-48 p-5 flex flex-col justify-end text-white shadow-md border border-[#152D3B]/10">
-        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1000&q=80" class="absolute inset-0 w-full h-full object-cover brightness-75" />
+      <!-- HERO BANNER -->
+      <section class="relative rounded-3xl overflow-hidden shadow-md border border-[#152D3B]/10 min-h-[190px] flex flex-col justify-end p-5">
+        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80" class="absolute inset-0 w-full h-full object-cover brightness-[0.75]" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-        <div class="relative z-10 space-y-1">
-          <span class="text-[10px] bg-white/20 px-2.5 py-0.5 rounded-full backdrop-blur-md font-medium text-emerald-200">Good Books • Better Days ♡</span>
-          <h1 class="font-serif text-2xl font-bold">Discover Books</h1>
-          <p class="text-xs text-amber-100 font-medium">Scan • Explore • Review • Discuss</p>
+        <div class="relative z-10 text-white space-y-1">
+          <span class="inline-block px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-medium text-emerald-200">
+            Good Books • Better Days ♡
+          </span>
+          <h1 class="font-serif text-2xl font-bold text-white">Discover Books</h1>
+          <p class="text-xs text-amber-100/90 font-medium">Scan • Explore • Review • Discuss</p>
+          <p class="text-[11px] text-gray-200 opacity-90 pt-1">Learn together with the NIJØK community.</p>
         </div>
-      </div>
+      </section>
 
-      <!-- Feature Grid Cards -->
-      <div class="grid grid-cols-2 gap-3.5">
+      <!-- FEATURE CARDS GRID -->
+      <section class="grid grid-cols-2 gap-3.5">
         
-        <!-- Live Barcode Scanner Button -->
-        <div onclick="startScannerModal()" class="bg-[#E8F5E9] p-3.5 rounded-2xl relative overflow-hidden h-28 flex flex-col justify-between cursor-pointer border border-[#195C40]/20 active:scale-98 transition-all">
-          <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80" class="absolute right-0 top-0 w-1/2 h-full object-cover opacity-20 mix-blend-multiply" />
+        <!-- Scan Barcode -->
+        <div onclick="startScanner()" class="col-span-1 rounded-2xl bg-[#E8F5E9] border border-[#195C40]/20 p-3.5 relative overflow-hidden shadow-sm active:scale-98 transition-all cursor-pointer group h-[120px] flex flex-col justify-between">
+          <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80" class="absolute right-0 top-0 w-1/2 h-full object-cover opacity-20 mix-blend-multiply" />
           <div class="w-8 h-8 rounded-full bg-[#195C40] text-white flex items-center justify-center shadow-sm">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path></svg>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
           </div>
           <div class="relative z-10">
-            <h3 class="font-bold text-xs text-[#152D3B] flex justify-between items-center">Scan Barcode <span>›</span></h3>
-            <p class="text-[9px] text-[#152D3B]/70 font-medium mt-0.5">Live Camera ISBN Scan</p>
+            <h3 class="font-semibold text-sm text-[#152D3B] flex items-center justify-between">Scan Barcode <span>›</span></h3>
+            <p class="text-[10px] text-[#152D3B]/70 font-medium mt-0.5">Scan ISBN • Get details</p>
           </div>
         </div>
 
         <!-- Search Books -->
-        <div onclick="toggleSearch()" class="bg-[#E3F2FD] p-3.5 rounded-2xl relative overflow-hidden h-28 flex flex-col justify-between cursor-pointer border border-blue-200 active:scale-98 transition-all">
-          <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80" class="absolute right-0 top-0 w-1/2 h-full object-cover opacity-20 mix-blend-multiply" />
+        <div onclick="openSearchModal()" class="col-span-1 rounded-2xl bg-[#E3F2FD] border border-blue-200 p-3.5 relative overflow-hidden shadow-sm active:scale-98 transition-all cursor-pointer group h-[120px] flex flex-col justify-between">
+          <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80" class="absolute right-0 top-0 w-1/2 h-full object-cover opacity-20 mix-blend-multiply" />
           <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
           </div>
           <div class="relative z-10">
-            <h3 class="font-bold text-xs text-[#152D3B] flex justify-between items-center">Search Books <span>›</span></h3>
-            <p class="text-[9px] text-[#152D3B]/70 font-medium mt-0.5">Title or ISBN search</p>
+            <h3 class="font-semibold text-sm text-[#152D3B] flex items-center justify-between">Search Books <span>›</span></h3>
+            <p class="text-[10px] text-[#152D3B]/70 font-medium mt-0.5">Title, author or topic</p>
           </div>
         </div>
 
-      </div>
+        <!-- My Library -->
+        <div onclick="switchTab('library')" class="col-span-1 rounded-2xl bg-[#E8F5E9]/60 border border-[#195C40]/15 p-3.5 relative overflow-hidden shadow-sm active:scale-98 transition-all cursor-pointer h-[115px] flex flex-col justify-between">
+          <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=800&q=80" class="absolute right-0 top-0 w-1/2 h-full object-cover opacity-25 mix-blend-multiply" />
+          <div class="w-8 h-8 rounded-full bg-[#195C40] text-white flex items-center justify-center shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-sm text-[#152D3B] flex items-center justify-between">My Library <span>›</span></h3>
+            <p class="text-[10px] text-[#152D3B]/70 font-medium mt-0.5">Reading list & notes</p>
+          </div>
+        </div>
 
-      <!-- Search Bar Modal Area -->
-      <div id="searchBox" class="bg-white p-3 rounded-2xl border border-gray-200 shadow-sm hidden space-y-2">
+        <!-- Ratings & Reviews -->
+        <div onclick="switchTab('reviews')" class="col-span-1 rounded-2xl bg-[#FFF3E0] border border-orange-200 p-3.5 relative overflow-hidden shadow-sm active:scale-98 transition-all cursor-pointer h-[115px] flex flex-col justify-between">
+          <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=800&q=80" class="absolute right-0 top-0 w-1/2 h-full object-cover opacity-25 mix-blend-multiply" />
+          <div class="w-8 h-8 rounded-full bg-amber-600 text-white flex items-center justify-center shadow-sm">
+            <svg class="w-4 h-4 fill-white" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-sm text-[#152D3B] flex items-center justify-between">Ratings & Reviews <span>›</span></h3>
+            <p class="text-[10px] text-[#152D3B]/70 font-medium mt-0.5">Share your thoughts</p>
+          </div>
+        </div>
+
+        <!-- Discussions -->
+        <div onclick="switchTab('chats')" class="col-span-1 rounded-2xl bg-[#F3E5F5] border border-purple-200 p-3.5 relative overflow-hidden shadow-sm active:scale-98 transition-all cursor-pointer h-[115px] flex flex-col justify-between">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" class="absolute right-0 top-0 w-1/2 h-full object-cover opacity-25 mix-blend-multiply" />
+          <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-sm text-[#152D3B] flex items-center justify-between">Discussions <span>›</span></h3>
+            <p class="text-[10px] text-[#152D3B]/70 font-medium mt-0.5">Talk about books</p>
+          </div>
+        </div>
+
+        <!-- Community -->
+        <div onclick="switchTab('community')" class="col-span-1 rounded-2xl bg-[#E3F2FD]/60 border border-blue-200 p-3.5 relative overflow-hidden shadow-sm active:scale-98 transition-all cursor-pointer h-[115px] flex flex-col justify-between">
+          <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80" class="absolute right-0 top-0 w-1/2 h-full object-cover opacity-25 mix-blend-multiply" />
+          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-sm text-[#152D3B] flex items-center justify-between">Community <span>›</span></h3>
+            <p class="text-[10px] text-[#152D3B]/70 font-medium mt-0.5">Meet book lovers</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- BROWSE BY CATEGORY -->
+      <section class="space-y-2.5 pt-1">
         <div class="flex items-center space-x-2">
-          <input type="text" id="searchInput" placeholder="Enter Book Name or ISBN (e.g. 9780735211292)" class="w-full text-xs p-2.5 rounded-xl bg-gray-50 border outline-none" />
-          <button onclick="manualSearch()" class="bg-[#195C40] text-white text-xs px-4 py-2.5 rounded-xl font-semibold">Search</button>
+          <span class="text-base">📁</span>
+          <h2 class="font-serif text-lg font-bold text-[#152D3B]">Browse by category</h2>
         </div>
+        <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar pb-1">
+          <button class="flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#E8F5E9] border border-[#195C40]/20 text-xs font-medium shrink-0 active:scale-95 transition-all">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=300&q=80" class="w-5 h-5 rounded-full object-cover" />
+            <span>🌱 Self Help</span>
+          </button>
+          <button class="flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#E8F5E9] border border-[#195C40]/20 text-xs font-medium shrink-0 active:scale-95 transition-all">
+            <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=300&q=80" class="w-5 h-5 rounded-full object-cover" />
+            <span>🥗 Health & Food</span>
+          </button>
+          <button class="flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#E8F5E9] border border-[#195C40]/20 text-xs font-medium shrink-0 active:scale-95 transition-all">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=300&q=80" class="w-5 h-5 rounded-full object-cover" />
+            <span>🏔️ Nature</span>
+          </button>
+          <button class="flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#E8F5E9] border border-[#195C40]/20 text-xs font-medium shrink-0 active:scale-95 transition-all">
+            <img src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=300&q=80" class="w-5 h-5 rounded-full object-cover" />
+            <span>🪙 Money</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- BROWSE BY LANGUAGE -->
+      <section class="space-y-2.5">
+        <div class="flex items-center space-x-2">
+          <span class="text-base">🌐</span>
+          <h2 class="font-serif text-lg font-bold text-[#152D3B]">Browse by language</h2>
+        </div>
+        <div class="grid grid-cols-4 gap-2">
+          <button class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#E8F5E9] border border-[#195C40]/15 text-center active:scale-95 transition-all">
+            <span class="text-sm font-bold text-[#195C40]">తెలుగు</span>
+            <span class="text-[10px] text-[#152D3B]/70 font-medium">Telugu</span>
+          </button>
+          <button class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#E8F5E9] border border-[#195C40]/15 text-center active:scale-95 transition-all">
+            <span class="text-sm font-bold text-[#195C40]">हिंदी</span>
+            <span class="text-[10px] text-[#152D3B]/70 font-medium">Hindi</span>
+          </button>
+          <button class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#E8F5E9] border border-[#195C40]/15 text-center active:scale-95 transition-all">
+            <span class="text-sm font-bold text-[#195C40]">मराठी</span>
+            <span class="text-[10px] text-[#152D3B]/70 font-medium">Marathi</span>
+          </button>
+          <button class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#E8F5E9] border border-[#195C40]/15 text-center active:scale-95 transition-all">
+            <span class="text-sm font-bold text-[#195C40]">A</span>
+            <span class="text-[10px] text-[#152D3B]/70 font-medium">English</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- TRENDING ON OPEN LIBRARY -->
+      <section class="space-y-3 pt-1">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <span class="text-base">🔥</span>
+            <h2 class="font-serif text-lg font-bold text-[#152D3B]">Trending on Open Library</h2>
+          </div>
+          <span class="text-xs text-[#195C40] font-medium cursor-pointer">See all</span>
+        </div>
+
+        <div class="flex space-x-3.5 overflow-x-auto no-scrollbar pb-2" id="trendingBooksContainer">
+          <!-- Injected via JS -->
+        </div>
+      </section>
+
+    </div>
+
+    <!-- TAB 2: EXPLORE -->
+    <div id="tab-explore" class="p-4 space-y-4 hidden">
+      <h2 class="font-serif text-xl font-bold text-[#152D3B]">Explore Library</h2>
+      <div class="space-y-3" id="exploreBooksList"></div>
+    </div>
+
+    <!-- TAB 3: CHATS / DISCUSSIONS -->
+    <div id="tab-chats" class="p-4 space-y-4 hidden">
+      <div class="flex items-center justify-between">
+        <h2 class="font-serif text-xl font-bold text-[#152D3B]">Book Discussions</h2>
+        <button onclick="openNewDiscussionModal()" class="px-3 py-1.5 bg-[#195C40] text-white text-xs font-semibold rounded-xl shadow-sm">+ New Topic</button>
+      </div>
+      <div class="space-y-3" id="discussionsContainer"></div>
+    </div>
+
+    <!-- TAB 4: NOTES & LIBRARY -->
+    <div id="tab-library" class="p-4 space-y-4 hidden">
+      <div class="flex items-center justify-between">
+        <h2 class="font-serif text-xl font-bold text-[#152D3B]">My Saved Library & Notes</h2>
+        <button onclick="openNewNoteModal()" class="px-3 py-1.5 bg-[#195C40] text-white text-xs font-semibold rounded-xl shadow-sm">+ Add Note</button>
+      </div>
+      <div class="space-y-3" id="libraryNotesContainer"></div>
+    </div>
+
+    <!-- TAB 5: PROFILE & AUTH -->
+    <div id="tab-profile" class="p-4 space-y-4 hidden">
+      <div id="authSection" class="bg-white p-5 rounded-3xl border border-[#152D3B]/10 shadow-sm space-y-3">
+        <h3 class="font-serif font-bold text-lg text-[#195C40]">Account Login & Profile Setup</h3>
+        <p class="text-xs text-gray-600">Enter your credentials to manage your NIJØK profile, followers, and blocked list.</p>
+        <input type="text" id="authName" placeholder="Full Name" class="w-full p-3 text-xs bg-gray-50 border rounded-xl outline-none" />
+        <input type="text" id="authUsername" placeholder="Username (e.g. shivadas_reads)" class="w-full p-3 text-xs bg-gray-50 border rounded-xl outline-none" />
+        <input type="email" id="authEmail" placeholder="Email Address" class="w-full p-3 text-xs bg-gray-50 border rounded-xl outline-none" />
+        <input type="password" id="authPass" placeholder="Password" class="w-full p-3 text-xs bg-gray-50 border rounded-xl outline-none" />
+        <button onclick="saveProfile()" class="w-full py-3 bg-[#195C40] text-white text-xs font-semibold rounded-xl shadow-sm">Save & Access Profile</button>
       </div>
 
-      <!-- Trending Carousel -->
-      <div class="space-y-2 pt-2">
-        <h2 class="font-serif text-base font-bold text-[#152D3B]">Trending Books</h2>
-        <div class="flex space-x-3 overflow-x-auto no-scrollbar pb-2">
-          
-          <div onclick="fetchBookInfo('9780735211292')" class="w-32 shrink-0 bg-white p-2.5 rounded-2xl border border-gray-200 shadow-sm cursor-pointer active:scale-98 transition-all">
-            <img src="https://covers.openlibrary.org/b/id/12843865-L.jpg" class="w-full h-36 object-cover rounded-xl mb-1.5" />
-            <h4 class="font-bold text-xs text-[#152D3B] truncate">Atomic Habits</h4>
-            <p class="text-[10px] text-gray-500 truncate">James Clear</p>
+      <div id="profileDashboard" class="space-y-4 hidden">
+        <div class="bg-white p-5 rounded-3xl border border-[#152D3B]/10 shadow-sm space-y-4">
+          <div class="flex items-center space-x-4">
+            <img id="profAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="w-16 h-16 rounded-full object-cover border-2 border-[#195C40]" />
+            <div>
+              <h3 id="profNameDisplay" class="font-serif font-bold text-base">Shivadas</h3>
+              <p id="profUsernameDisplay" class="text-xs text-gray-500">@shivadas_books</p>
+              <p id="profEmailDisplay" class="text-[11px] text-gray-400">user@nijok.com</p>
+            </div>
           </div>
-
-          <div onclick="fetchBookInfo('9780143130727')" class="w-32 shrink-0 bg-white p-2.5 rounded-2xl border border-gray-200 shadow-sm cursor-pointer active:scale-98 transition-all">
-            <img src="https://covers.openlibrary.org/b/id/10522079-L.jpg" class="w-full h-36 object-cover rounded-xl mb-1.5" />
-            <h4 class="font-bold text-xs text-[#152D3B] truncate">Ikigai</h4>
-            <p class="text-[10px] text-gray-500 truncate">Héctor García</p>
+          <div class="grid grid-cols-3 gap-2 text-center py-2 border-y border-gray-100 text-xs">
+            <div><span class="font-bold block" id="postCount">4</span>Posts</div>
+            <div><span class="font-bold block" id="followerCount">142</span>Followers</div>
+            <div><span class="font-bold block">18</span>Following</div>
           </div>
+        </div>
 
-          <div onclick="fetchBookInfo('9780062316097')" class="w-32 shrink-0 bg-white p-2.5 rounded-2xl border border-gray-200 shadow-sm cursor-pointer active:scale-98 transition-all">
-            <img src="https://covers.openlibrary.org/b/id/12547148-L.jpg" class="w-full h-36 object-cover rounded-xl mb-1.5" />
-            <h4 class="font-bold text-xs text-[#152D3B] truncate">Sapiens</h4>
-            <p class="text-[10px] text-gray-500 truncate">Yuval Harari</p>
-          </div>
+        <div class="bg-white p-4 rounded-2xl border border-[#152D3B]/10 space-y-2">
+          <h4 class="font-serif font-bold text-sm text-[#195C40]">Blocked Users & Privacy</h4>
+          <div id="blockedList" class="text-xs text-gray-500">No users blocked currently.</div>
+          <button onclick="blockSampleUser()" class="text-xs text-red-600 font-semibold pt-1">Block Sample User</button>
+        </div>
 
+         <button onclick="logoutProfile()" class="w-full py-3 bg-red-50 text-red-600 text-xs font-semibold rounded-xl border border-red-200">Log Out</button>
+      </div>
+    </div>
+
+    <!-- TAB 6: COMMUNITY -->
+    <div id="tab-community" class="p-4 space-y-4 hidden">
+      <div class="flex items-center justify-between">
+        <h2 class="font-serif text-xl font-bold text-[#152D3B]">Community Feed</h2>
+        <button onclick="openNewPostModal()" class="px-3 py-1.5 bg-[#195C40] text-white text-xs font-semibold rounded-xl">+ Create Post</button>
+      </div>
+      <div class="space-y-4" id="communityFeedContainer"></div>
+    </div>
+
+    <!-- TAB 7: RATINGS & REVIEWS -->
+    <div id="tab-reviews" class="p-4 space-y-4 hidden">
+      <div class="flex items-center justify-between">
+        <h2 class="font-serif text-xl font-bold text-[#152D3B]">Ratings & Reviews</h2>
+        <button onclick="openReviewModal()" class="px-3 py-1.5 bg-[#195C40] text-white text-xs font-semibold rounded-xl">+ Add Review</button>
+      </div>
+      <div class="space-y-3" id="reviewsContainer"></div>
+    </div>
+
+    <!-- FIXED BOTTOM NAVIGATION BAR -->
+    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-[#152D3B]/10 px-4 py-2 flex items-center justify-around max-w-md mx-auto">
+      <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center space-y-0.5 text-[#195C40]">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+        <span class="text-[10px] font-medium">Home</span>
+      </button>
+
+      <button onclick="switchTab('explore')" id="nav-explore" class="flex flex-col items-center space-y-0.5 text-gray-400">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
+        <span class="text-[10px] font-medium">Explore</span>
+      </button>
+
+      <button onclick="switchTab('home')" class="flex flex-col items-center justify-center -mt-5">
+        <div class="w-12 h-12 rounded-full bg-[#195C40] text-white flex items-center justify-center shadow-md border-4 border-[#FAF8F0]">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        </div>
+        <span class="text-[10px] font-bold text-[#195C40] mt-0.5">Books</span>
+      </button>
+
+      <button onclick="switchTab('chats')" id="nav-chats" class="flex flex-col items-center space-y-0.5 text-gray-400">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+        <span class="text-[10px] font-medium">Chats</span>
+      </button>
+
+      <button onclick="switchTab('library')" id="nav-library" class="flex flex-col items-center space-y-0.5 text-gray-400">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+        <span class="text-[10px] font-medium">Notes</span>
+      </button>
+    </nav>
+
+    <!-- MODALS -->
+    <!-- Search Modal -->
+    <div id="searchModal" class="fixed inset-0 bg-black/60 z-50 flex items-end justify-center hidden">
+      <div class="bg-[#FAF8F0] w-full max-w-md p-5 rounded-t-3xl space-y-3">
+        <div class="flex justify-between items-center border-b pb-2">
+          <span class="text-xs font-bold text-[#195C40]">Search Books (Multi-Source API)</span>
+          <button onclick="closeSearchModal()" class="p-1 rounded-full bg-gray-200">✕</button>
+        </div>
+        <div class="flex space-x-2">
+          <input type="text" id="searchInput" placeholder="Search title, author or ISBN..." class="w-full text-xs p-3 bg-white border rounded-xl outline-none" />
+          <button onclick="executeSearch()" class="bg-[#195C40] text-white px-4 py-3 rounded-xl text-xs font-semibold">Search</button>
         </div>
       </div>
+    </div>
 
-    </main>
-
-    <!-- Scanner Camera Modal Overlay -->
+    <!-- Scanner Camera Modal -->
     <div id="scannerModal" class="fixed inset-0 bg-black/90 z-50 flex flex-col justify-between p-4 hidden">
       <div class="flex justify-between items-center text-white">
         <span class="text-xs font-bold text-emerald-400">Live Barcode & ISBN Scanner</span>
-        <button onclick="stopScannerModal()" class="p-2 rounded-full bg-white/20 text-xs">✕ Close</button>
+        <button onclick="stopScanner()" class="p-2 rounded-full bg-white/20 text-xs">✕ Close</button>
       </div>
       <div class="w-full bg-black rounded-2xl overflow-hidden relative flex items-center justify-center">
         <div id="reader" style="width: 100%;"></div>
@@ -146,128 +364,329 @@
     </div>
 
     <!-- Book Detail Modal -->
-    <div id="modal" class="fixed inset-0 bg-black/60 z-50 flex items-end justify-center hidden">
-      <div class="bg-[#FAF8F0] w-full max-w-md p-5 rounded-t-3xl space-y-3">
+    <div id="detailModal" class="fixed inset-0 bg-black/60 z-50 flex items-end justify-center hidden">
+      <div class="bg-[#FAF8F0] w-full max-w-md p-5 rounded-t-3xl space-y-3 max-h-[85vh] overflow-y-auto">
         <div class="flex justify-between items-center border-b pb-2">
-          <span id="mSource" class="text-xs font-bold text-[#195C40]">Open Library / Google Books</span>
-          <button onclick="closeModal()" class="p-1.5 rounded-full bg-gray-200 text-xs font-bold">✕</button>
+          <span id="dSource" class="text-xs font-bold text-[#195C40]">Open Library</span>
+          <button onclick="closeDetailModal()" class="p-1 rounded-full bg-gray-200">✕</button>
         </div>
-        <div class="flex space-x-3">
-          <img id="mCover" class="w-20 h-28 object-cover rounded-lg shadow" />
+        <div class="flex space-x-4">
+          <img id="dCover" class="w-24 h-36 object-cover rounded-xl shadow-md" />
           <div class="space-y-1">
-            <h3 id="mTitle" class="font-bold text-sm"></h3>
-            <p id="mAuthor" class="text-xs text-gray-600"></p>
-            <p id="mIsbn" class="text-[10px] text-gray-400"></p>
+            <h3 id="dTitle" class="font-serif font-bold text-base"></h3>
+            <p id="dAuthor" class="text-xs text-gray-600"></p>
+            <p id="dIsbn" class="text-[10px] text-gray-400"></p>
+            <div class="flex items-center space-x-1 pt-1">
+              <span class="text-amber-500">★</span>
+              <span id="dRating" class="text-xs font-bold">4.8</span>
+            </div>
           </div>
         </div>
-        <p id="mDesc" class="text-xs bg-white p-3 rounded-xl border border-gray-200 max-h-36 overflow-y-auto"></p>
+        <p id="dDesc" class="text-xs bg-white p-3 rounded-xl border border-gray-200 leading-relaxed"></p>
+        <button onclick="saveBookToLibrary()" class="w-full py-3 bg-[#195C40] text-white text-xs font-semibold rounded-xl shadow-sm">Save to My Library</button>
       </div>
     </div>
 
   </div>
 
   <script>
+    let trendingBooks = [
+      { id: "1", title: "Atomic Habits", author: "James Clear", rating: 4.6, reviews: "12.3K", cover: "https://covers.openlibrary.org/b/id/12843865-L.jpg", isbn: "9780735211292", desc: "An Easy & Proven Way to Build Good Habits & Break Bad Ones." },
+      { id: "2", title: "Ikigai", author: "Héctor García", rating: 4.4, reviews: "8.1K", cover: "https://covers.openlibrary.org/b/id/10522079-L.jpg", isbn: "9780143130727", desc: "The Japanese Secret to a Long and Happy Life." },
+      { id: "3", title: "Sapiens", author: "Yuval Noah Harari", rating: 4.5, reviews: "15.2K", cover: "https://covers.openlibrary.org/b/id/12547148-L.jpg", isbn: "9780062316097", desc: "A Brief History of Humankind." },
+      { id: "4", title: "The Psychology of Money", author: "Morgan Housel", rating: 4.4, reviews: "9.7K", cover: "https://covers.openlibrary.org/b/id/10543216-L.jpg", isbn: "9780857197689", desc: "Timeless lessons on wealth, greed, and happiness." },
+      { id: "5", title: "The 5 AM Club", author: "Robin Sharma", rating: 4.3, reviews: "7.1K", cover: "https://covers.openlibrary.org/b/id/8885148-L.jpg", isbn: "9781443456623", desc: "Own Your Morning. Elevate Your Life." }
+    ];
+
+    let discussions = [
+      { id: 1, title: "Best chapter in Atomic Habits?", author: "Aarav M.", replies: 14, tag: "Self Help" },
+      { id: 2, title: "Finding your Ikigai discussion group", author: "Priya S.", replies: 28, tag: "Philosophy" }
+    ];
+
+    let reviewsList = [
+      { id: 1, book: "Atomic Habits", user: "Shivadas", rating: 5, text: "Completely changed how I look at daily routines." },
+      { id: 2, book: "Sapiens", user: "Rahul K.", rating: 5, text: "Mind-blowing perspective on human evolution." }
+    ];
+
+    let notesList = [
+      { id: 1, title: "Habit Stacking", text: "Link new habit to an existing one.", tag: "Self Help" }
+    ];
+
+    let communityPosts = [
+      { id: 1, user: "Sneha R.", content: "Just finished reading 'The Psychology of Money'. Highly recommend chapter 3!", likes: 24, comments: 5 }
+    ];
+
+    let blockedUsers = [];
+    let activeBook = null;
     let html5QrCode = null;
 
-    function toggleSearch() {
-      const box = document.getElementById('searchBox');
-      box.classList.toggle('hidden');
-    }
+    window.onload = function() {
+      renderTrending();
+      renderExplore();
+      renderDiscussions();
+      renderReviews();
+      renderNotes();
+      renderCommunity();
+      checkAuth();
+    };
 
-    function manualSearch() {
-      const query = document.getElementById('searchInput').value.trim();
-      if(query) {
-        fetchBookInfo(query);
-      }
-    }
-
-    function showDetail(title, author, cover, isbn, desc, source) {
-      document.getElementById('mTitle').innerText = title || "Unknown Title";
-      document.getElementById('mAuthor').innerText = author || "Unknown Author";
-      document.getElementById('mCover').src = cover || 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80';
-      document.getElementById('mIsbn').innerText = 'ISBN: ' + (isbn || 'N/A');
-      document.getElementById('mDesc').innerText = desc || 'No description available.';
-      document.getElementById('mSource').innerText = 'Source: ' + (source || 'Open Library API');
-      document.getElementById('modal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-      document.getElementById('modal').classList.add('hidden');
-    }
-
-    function startScannerModal() {
-      document.getElementById('scannerModal').classList.remove('hidden');
-      if (!html5QrCode) {
-        html5QrCode = new Html5Qrcode("reader");
-      }
-      html5QrCode.start(
-        { facingMode: "environment" }, 
-        { fps: 10, qrbox: { width: 250, height: 150 } },
-        (decodedText) => {
-          stopScannerModal();
-          fetchBookInfo(decodedText);
-        },
-        (errorMessage) => {
-          // Scanning in progress...
-        }
-      ).catch(err => {
-        alert("Camera permission denied or not supported on this device. Please use manual search.");
-        stopScannerModal();
+    function switchTab(tabName) {
+      ['home', 'explore', 'chats', 'library', 'profile', 'community', 'reviews'].forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        if(el) el.classList.add('hidden');
+        const nav = document.getElementById('nav-' + t);
+        if(nav) nav.className = "flex flex-col items-center space-y-0.5 text-gray-400";
       });
+
+      const activeEl = document.getElementById('tab-' + tabName);
+      if(activeEl) activeEl.classList.remove('hidden');
+      const activeNav = document.getElementById('nav-' + tabName);
+      if(activeNav) activeNav.className = "flex flex-col items-center space-y-0.5 text-[#195C40]";
+      window.scrollTo(0, 0);
     }
 
-    function stopScannerModal() {
-      if (html5QrCode && html5QrCode.isScanning) {
-        html5QrCode.stop().then(() => {
-          document.getElementById('scannerModal').classList.add('hidden');
-        }).catch(err => {
-          document.getElementById('scannerModal').classList.add('hidden');
-        });
+    function renderTrending() {
+      const container = document.getElementById('trendingBooksContainer');
+      container.innerHTML = trendingBooks.map(b => `
+        <div onclick='openBookDetail(${JSON.stringify(b)})' class="shrink-0 w-36 bg-white rounded-2xl p-2.5 border border-[#152D3B]/10 shadow-sm active:scale-98 transition-all cursor-pointer flex flex-col justify-between">
+          <div class="aspect-[3/4] rounded-xl overflow-hidden bg-gray-100 mb-2 relative">
+            <img src="${b.cover}" class="w-full h-full object-cover" />
+          </div>
+          <div>
+            <h3 class="font-bold text-xs text-[#152D3B] line-clamp-1">${b.title}</h3>
+            <p class="text-[10px] text-[#152D3B]/60 font-medium line-clamp-1">${b.author}</p>
+            <div class="flex items-center space-x-1 mt-1">
+              <span class="text-amber-500 text-xs">★</span>
+              <span class="text-[10px] font-bold">${b.rating}</span>
+              <span class="text-[9px] text-gray-400">(${b.reviews})</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderExplore() {
+      const container = document.getElementById('exploreBooksList');
+      container.innerHTML = trendingBooks.map(b => `
+        <div onclick='openBookDetail(${JSON.stringify(b)})' class="bg-white p-3 rounded-2xl border border-gray-200 flex space-x-3 cursor-pointer">
+          <img src="${b.cover}" class="w-16 h-24 object-cover rounded-xl" />
+          <div class="space-y-1">
+            <h4 class="font-bold text-sm">${b.title}</h4>
+            <p class="text-xs text-gray-600">${b.author}</p>
+            <p class="text-[11px] text-gray-500 line-clamp-2">${b.desc}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderDiscussions() {
+      const container = document.getElementById('discussionsContainer');
+      container.innerHTML = discussions.map(d => `
+        <div class="bg-white p-4 rounded-2xl border border-purple-100 shadow-sm space-y-2">
+          <div class="flex justify-between"><span class="text-[10px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-semibold">${d.tag}</span><span class="text-[10px] text-gray-400">${d.replies} replies</span></div>
+          <h4 class="font-bold text-sm">${d.title}</h4>
+          <p class="text-xs text-gray-500">Started by ${d.author}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderReviews() {
+      const container = document.getElementById('reviewsContainer');
+      container.innerHTML = reviewsList.map(r => `
+        <div class="bg-white p-4 rounded-2xl border border-amber-100 shadow-sm space-y-1">
+          <div class="flex justify-between items-center"><h4 class="font-bold text-xs">${r.book}</h4><span class="text-xs font-bold text-amber-500">★ ${r.rating}/5</span></div>
+          <p class="text-xs text-gray-700">"${r.text}"</p>
+          <p class="text-[10px] text-gray-400">— ${r.user}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderNotes() {
+      const container = document.getElementById('libraryNotesContainer');
+      container.innerHTML = notesList.map(n => `
+        <div class="bg-white p-4 rounded-2xl border border-emerald-100 shadow-sm space-y-1">
+          <span class="text-[10px] px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-full font-semibold">${n.tag}</span>
+          <h4 class="font-bold text-sm">${n.title}</h4>
+          <p class="text-xs text-gray-600">${n.text}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderCommunity() {
+      const container = document.getElementById('communityFeedContainer');
+      container.innerHTML = communityPosts.map(p => `
+        <div class="bg-white p-4 rounded-2xl border border-blue-100 shadow-sm space-y-2">
+          <div class="flex items-center space-x-2"><div class="w-7 h-7 rounded-full bg-[#195C40] text-white flex items-center justify-center font-bold text-xs">${p.user[0]}</div><span class="font-bold text-xs">${p.user}</span></div>
+          <p class="text-xs text-gray-800">${p.content}</p>
+          <div class="flex space-x-4 text-xs text-gray-500 pt-1 border-t">
+            <button onclick="likePost(${p.id})">👍 Like (${p.likes})</button>
+            <button>💬 Comment (${p.comments})</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function fetchBookByQuery(query) {
+      try {
+        const res = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${query}&format=json&jscmd=data`);
+        const data = await res.json();
+        const key = `ISBN:${query}`;
+        if(data[key]) {
+          const b = data[key];
+          openBookDetail({
+            title: b.title,
+            author: b.authors ? b.authors[0].name : "Unknown",
+            rating: 4.7,
+            reviews: "1.1K",
+            cover: b.cover ? b.cover.large : trendingBooks[0].cover,
+            isbn: query,
+            desc: b.notes || "Retrieved live via Open Library API."
+          });
+          return;
+        }
+
+        const gRes = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`);
+        const gData = await gRes.json();
+        if(gData.items && gData.items.length > 0) {
+          const info = gData.items[0].volumeInfo;
+          openBookDetail({
+            title: info.title,
+            author: info.authors ? info.authors.join(', ') : "Unknown",
+            rating: info.averageRating || 4.6,
+            reviews: info.ratingsCount || 500,
+            cover: info.imageLinks ? info.imageLinks.thumbnail : trendingBooks[0].cover,
+            isbn: query,
+            desc: info.description || "Retrieved live via Google Books API."
+          });
+          return;
+        }
+        alert("Book not found. Try another ISBN or title.");
+      } catch(e) {
+        alert("Network error during API fetch.");
+      }
+    }
+
+    function openBookDetail(b) {
+      activeBook = b;
+      document.getElementById('dTitle').innerText = b.title;
+      document.getElementById('dAuthor').innerText = b.author;
+      document.getElementById('dCover').src = b.cover;
+      document.getElementById('dIsbn').innerText = 'ISBN: ' + b.isbn;
+      document.getElementById('dRating').innerText = b.rating;
+      document.getElementById('dDesc').innerText = b.desc;
+      document.getElementById('detailModal').classList.remove('hidden');
+    }
+
+    function closeDetailModal() {
+      document.getElementById('detailModal').classList.add('hidden');
+    }
+
+    function openSearchModal() { document.getElementById('searchModal').classList.remove('hidden'); }
+    function closeSearchModal() { document.getElementById('searchModal').classList.add('hidden'); }
+    function executeSearch() {
+      const q = document.getElementById('searchInput').value.trim();
+      if(q) { closeSearchModal(); fetchBookByQuery(q); }
+    }
+
+    function startScanner() {
+      document.getElementById('scannerModal').classList.remove('hidden');
+      if(!html5QrCode) html5QrCode = new Html5Qrcode("reader");
+      html5QrCode.start({ facingMode: "environment" }, { fps: 10, qrbox: { width: 250, height: 150 } }, (text) => {
+        stopScanner();
+        fetchBookByQuery(text);
+      }, () => {});
+    }
+
+    function stopScanner() {
+      if(html5QrCode && html5QrCode.isScanning) {
+        html5QrCode.stop().then(() => document.getElementById('scannerModal').classList.add('hidden')).catch(() => document.getElementById('scannerModal').classList.add('hidden'));
       } else {
         document.getElementById('scannerModal').classList.add('hidden');
       }
     }
 
-    // Multi-source API integration: Open Library + Google Books
-    async function fetchBookInfo(query) {
-      try {
-        let found = false;
-        
-        // 1. Try Open Library ISBN API
-        if (/^\d{10}(\d{3})?$/.test(query)) {
-          const res = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${query}&format=json&jscmd=data`);
-          const data = await res.json();
-          const key = `ISBN:${query}`;
-          if (data[key]) {
-            const b = data[key];
-            showDetail(b.title, b.authors ? b.authors[0].name : "Author", b.cover ? b.cover.large : '', query, b.notes || b.subtitle || "Retrieved live via Open Library API.", "Open Library");
-            found = true;
-            return;
-          }
-        }
+    function saveProfile() {
+      const name = document.getElementById('authName').value;
+      const username = document.getElementById('authUsername').value;
+      const email = document.getElementById('authEmail').value;
+      if(!name || !email) { alert("Please fill name and email."); return; }
+      
+      localStorage.setItem('nijok_user', JSON.stringify({ name, username, email }));
+      checkAuth();
+    }
 
-        // 2. Fallback to Google Books API
-        const gRes = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`);
-        const gData = await gRes.json();
-        if (gData.items && gData.items.length > 0) {
-          const info = gData.items[0].volumeInfo;
-          showDetail(
-            info.title, 
-            info.authors ? info.authors.join(', ') : "Author", 
-            info.imageLinks ? info.imageLinks.thumbnail : '', 
-            query, 
-            info.description || "Retrieved live via Google Books API.",
-            "Google Books API"
-          );
-          found = true;
-          return;
-        }
+    function checkAuth() {
+      const userStr = localStorage.getItem('nijok_user');
+      if(userStr) {
+        const u = JSON.parse(userStr);
+        document.getElementById('authSection').classList.add('hidden');
+        document.getElementById('profileDashboard').classList.remove('hidden');
+        document.getElementById('profNameDisplay').innerText = u.name;
+        document.getElementById('profUsernameDisplay').innerText = '@' + (u.username || 'reader');
+        document.getElementById('profEmailDisplay').innerText = u.email;
+      } else {
+        document.getElementById('authSection').classList.remove('hidden');
+        document.getElementById('profileDashboard').classList.add('hidden');
+      }
+    }
 
-        if(!found) {
-          alert("Book not found for: " + query + ". Try scanning another barcode or typing 'Atomic Habits'.");
-        }
-      } catch(e) {
-        alert("Network error while fetching book info.");
+    function logoutProfile() {
+      localStorage.removeItem('nijok_user');
+      checkAuth();
+    }
+
+    function blockSampleUser() {
+      blockedUsers.push("Spammer_99");
+      document.getElementById('blockedList').innerText = "Blocked: Spammer_99";
+    }
+
+    function saveBookToLibrary() {
+      if(activeBook) {
+        notesList.push({ id: Date.now(), title: activeBook.title, text: "Added to reading list.", tag: "Library" });
+        closeDetailModal();
+        switchTab('library');
+        renderNotes();
+      }
+    }
+
+    function likePost(id) {
+      const p = communityPosts.find(x => x.id === id);
+      if(p) { p.likes++; renderCommunity(); }
+    }
+
+    function openNewNoteModal() {
+      const title = prompt("Enter Note Title:");
+      const text = prompt("Enter your note/takeaway:");
+      if(title && text) {
+        notesList.push({ id: Date.now(), title, text, tag: "Personal" });
+        renderNotes();
+      }
+    }
+
+    function openNewDiscussionModal() {
+      const title = prompt("Discussion Topic Title:");
+      const tag = prompt("Category Tag (e.g. Self Help):");
+      if(title) {
+        discussions.unshift({ id: Date.now(), title, author: "You", replies: 1, tag: tag || "General" });
+        renderDiscussions();
+      }
+    }
+
+    function openNewPostModal() {
+      const content = prompt("What's on your mind about books?");
+      if(content) {
+        communityPosts.unshift({ id: Date.now(), user: "You", content, likes: 0, comments: 0 });
+        renderCommunity();
+      }
+    }
+
+    function openReviewModal() {
+      const book = prompt("Book Name:");
+      const text = prompt("Your review:");
+      const rating = prompt("Rating (1-5):");
+      if(book && text) {
+        reviewsList.unshift({ id: Date.now(), book, user: "You", rating: rating || 5, text });
+        renderReviews();
       }
     }
   </script>
