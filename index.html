@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>NIJØK Books — Ultimate Web App</title>
+  <title>NIJØK Books — NextGen Premium App</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -44,7 +44,7 @@
   <div class="min-h-screen pb-28 max-w-md mx-auto relative selection:bg-[#195C40] selection:text-white">
     
     <!-- HEADER -->
-    <header class="sticky top-0 z-40 bg-[#FAF8F0]/90 backdrop-blur-md px-4 py-3 border-b border-[#152D3B]/10 flex items-center justify-between">
+    <header class="sticky top-0 z-40 bg-[#FAF8F0]/95 backdrop-blur-md px-4 py-3 border-b border-[#152D3B]/10 flex items-center justify-between shadow-xs">
       <div class="flex items-center space-x-2 cursor-pointer" onclick="switchTab('home')">
         <div class="w-8 h-8 rounded-full bg-[#195C40] text-white font-serif font-bold flex items-center justify-center text-lg shadow-sm">N</div>
         <div>
@@ -52,15 +52,24 @@
           <span class="text-[10px] tracking-widest block text-[#152D3B]/60 uppercase font-semibold -mt-1">Books</span>
         </div>
       </div>
+      
       <div class="flex items-center space-x-2">
-        <button onclick="openSearchModal()" class="p-2.5 bg-white rounded-full border border-[#152D3B]/10 shadow-sm active:scale-95 transition-all">
-          <svg class="w-4 h-4 text-[#152D3B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-        </button>
         <button onclick="switchTab('profile')" class="w-9 h-9 rounded-full border-2 border-[#195C40] overflow-hidden p-0.5 shadow-sm active:scale-95 transition-all">
-          <img id="userAvatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover rounded-full" />
+          <img id="headerUserAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover rounded-full" />
         </button>
       </div>
     </header>
+
+    <!-- GOOGLE-STYLE FLOATING SEARCH BAR -->
+    <div class="px-4 pt-3 pb-1">
+      <div class="relative bg-white rounded-full shadow-md border border-[#152D3B]/10 flex items-center px-4 py-2.5 transition-all focus-within:ring-2 focus-within:ring-[#195C40]">
+        <svg class="w-5 h-5 text-gray-400 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <input type="text" id="googleSearchBar" oninput="handleSearchTyping()" placeholder="Search title, author, category or ISBN..." class="w-full text-xs font-medium bg-transparent outline-none text-[#152D3B]" />
+        <button onclick="triggerQuickSearch()" class="text-xs bg-[#195C40] text-white px-3 py-1 rounded-full font-semibold ml-2 shrink-0 shadow-xs active:scale-95">Find</button>
+      </div>
+      <!-- Auto-suggestions dropdown -->
+      <div id="searchSuggestions" class="mt-1 bg-white rounded-2xl shadow-xl border border-gray-100 hidden p-2 z-50 relative space-y-1"></div>
+    </div>
 
     <!-- TAB 1: HOME / BOOKS DASHBOARD -->
     <div id="tab-home" class="p-4 space-y-4">
@@ -90,12 +99,12 @@
           </div>
           <div class="relative z-10">
             <h3 class="font-semibold text-sm text-[#152D3B] flex items-center justify-between">Scan Barcode <span>›</span></h3>
-            <p class="text-[10px] text-[#152D3B]/70 font-medium mt-0.5">Scan ISBN • Get details</p>
+            <p class="text-[10px] text-[#152D3B]/70 font-medium mt-0.5">Scan ISBN • Fast Details</p>
           </div>
         </div>
 
         <!-- Search Books -->
-        <div onclick="openSearchModal()" class="col-span-1 rounded-2xl bg-[#E3F2FD] border border-blue-200 p-3.5 relative overflow-hidden shadow-sm active:scale-98 transition-all cursor-pointer group h-[120px] flex flex-col justify-between">
+        <div onclick="focusSearch()" class="col-span-1 rounded-2xl bg-[#E3F2FD] border border-blue-200 p-3.5 relative overflow-hidden shadow-sm active:scale-98 transition-all cursor-pointer group h-[120px] flex flex-col justify-between">
           <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80" class="absolute right-0 top-0 w-1/2 h-full object-cover opacity-20 mix-blend-multiply" />
           <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -163,47 +172,21 @@
           <h2 class="font-serif text-lg font-bold text-[#152D3B]">Browse by category</h2>
         </div>
         <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar pb-1">
-          <button class="flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#E8F5E9] border border-[#195C40]/20 text-xs font-medium shrink-0 active:scale-95 transition-all">
+          <button onclick="fetchBookByQuery('Self Help')" class="flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#E8F5E9] border border-[#195C40]/20 text-xs font-medium shrink-0 active:scale-95 transition-all">
             <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=300&q=80" class="w-5 h-5 rounded-full object-cover" />
             <span>🌱 Self Help</span>
           </button>
-          <button class="flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#E8F5E9] border border-[#195C40]/20 text-xs font-medium shrink-0 active:scale-95 transition-all">
+          <button onclick="fetchBookByQuery('Health')" class="flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#E8F5E9] border border-[#195C40]/20 text-xs font-medium shrink-0 active:scale-95 transition-all">
             <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=300&q=80" class="w-5 h-5 rounded-full object-cover" />
             <span>🥗 Health & Food</span>
           </button>
-          <button class="flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#E8F5E9] border border-[#195C40]/20 text-xs font-medium shrink-0 active:scale-95 transition-all">
+          <button onclick="fetchBookByQuery('Nature')" class="flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#E8F5E9] border border-[#195C40]/20 text-xs font-medium shrink-0 active:scale-95 transition-all">
             <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=300&q=80" class="w-5 h-5 rounded-full object-cover" />
             <span>🏔️ Nature</span>
           </button>
-          <button class="flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#E8F5E9] border border-[#195C40]/20 text-xs font-medium shrink-0 active:scale-95 transition-all">
+          <button onclick="fetchBookByQuery('Finance')" class="flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#E8F5E9] border border-[#195C40]/20 text-xs font-medium shrink-0 active:scale-95 transition-all">
             <img src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=300&q=80" class="w-5 h-5 rounded-full object-cover" />
             <span>🪙 Money</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- BROWSE BY LANGUAGE -->
-      <section class="space-y-2.5">
-        <div class="flex items-center space-x-2">
-          <span class="text-base">🌐</span>
-          <h2 class="font-serif text-lg font-bold text-[#152D3B]">Browse by language</h2>
-        </div>
-        <div class="grid grid-cols-4 gap-2">
-          <button class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#E8F5E9] border border-[#195C40]/15 text-center active:scale-95 transition-all">
-            <span class="text-sm font-bold text-[#195C40]">తెలుగు</span>
-            <span class="text-[10px] text-[#152D3B]/70 font-medium">Telugu</span>
-          </button>
-          <button class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#E8F5E9] border border-[#195C40]/15 text-center active:scale-95 transition-all">
-            <span class="text-sm font-bold text-[#195C40]">हिंदी</span>
-            <span class="text-[10px] text-[#152D3B]/70 font-medium">Hindi</span>
-          </button>
-          <button class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#E8F5E9] border border-[#195C40]/15 text-center active:scale-95 transition-all">
-            <span class="text-sm font-bold text-[#195C40]">मराठी</span>
-            <span class="text-[10px] text-[#152D3B]/70 font-medium">Marathi</span>
-          </button>
-          <button class="flex flex-col items-center justify-center p-2 rounded-xl bg-[#E8F5E9] border border-[#195C40]/15 text-center active:scale-95 transition-all">
-            <span class="text-sm font-bold text-[#195C40]">A</span>
-            <span class="text-[10px] text-[#152D3B]/70 font-medium">English</span>
           </button>
         </div>
       </section>
@@ -213,9 +196,9 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-2">
             <span class="text-base">🔥</span>
-            <h2 class="font-serif text-lg font-bold text-[#152D3B]">Trending on Open Library</h2>
+            <h2 class="font-serif text-lg font-bold text-[#152D3B]">Trending Books</h2>
           </div>
-          <span class="text-xs text-[#195C40] font-medium cursor-pointer">See all</span>
+          <span onclick="switchTab('explore')" class="text-xs text-[#195C40] font-medium cursor-pointer">See all</span>
         </div>
 
         <div class="flex space-x-3.5 overflow-x-auto no-scrollbar pb-2" id="trendingBooksContainer">
@@ -249,11 +232,22 @@
       <div class="space-y-3" id="libraryNotesContainer"></div>
     </div>
 
-    <!-- TAB 5: PROFILE & AUTH -->
+    <!-- TAB 5: PROFILE & AUTH WITH CUSTOM PHOTO UPLOAD -->
     <div id="tab-profile" class="p-4 space-y-4 hidden">
       <div id="authSection" class="bg-white p-5 rounded-3xl border border-[#152D3B]/10 shadow-sm space-y-3">
-        <h3 class="font-serif font-bold text-lg text-[#195C40]">Account Login & Profile Setup</h3>
-        <p class="text-xs text-gray-600">Enter your credentials to manage your NIJØK profile, followers, and blocked list.</p>
+        <h3 class="font-serif font-bold text-lg text-[#195C40]">Account Setup</h3>
+        <p class="text-xs text-gray-600">Enter your info & upload profile photo.</p>
+        
+        <!-- Photo Upload Control -->
+        <div class="flex items-center space-x-3 py-2">
+          <img id="avatarPreview" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="w-14 h-14 rounded-full object-cover border-2 border-[#195C40]" />
+          <div>
+            <label for="profilePhotoInput" class="cursor-pointer bg-[#E8F5E9] text-[#195C40] px-3 py-1.5 rounded-xl text-xs font-semibold border border-[#195C40]/20 inline-block">📷 Upload Photo</label>
+            <input type="file" id="profilePhotoInput" accept="image/*" class="hidden" onchange="previewPhoto(event)" />
+            <p class="text-[10px] text-gray-400 mt-1">Select image from gallery</p>
+          </div>
+        </div>
+
         <input type="text" id="authName" placeholder="Full Name" class="w-full p-3 text-xs bg-gray-50 border rounded-xl outline-none" />
         <input type="text" id="authUsername" placeholder="Username (e.g. shivadas_reads)" class="w-full p-3 text-xs bg-gray-50 border rounded-xl outline-none" />
         <input type="email" id="authEmail" placeholder="Email Address" class="w-full p-3 text-xs bg-gray-50 border rounded-xl outline-none" />
@@ -278,17 +272,11 @@
           </div>
         </div>
 
-        <div class="bg-white p-4 rounded-2xl border border-[#152D3B]/10 space-y-2">
-          <h4 class="font-serif font-bold text-sm text-[#195C40]">Blocked Users & Privacy</h4>
-          <div id="blockedList" class="text-xs text-gray-500">No users blocked currently.</div>
-          <button onclick="blockSampleUser()" class="text-xs text-red-600 font-semibold pt-1">Block Sample User</button>
-        </div>
-
-         <button onclick="logoutProfile()" class="w-full py-3 bg-red-50 text-red-600 text-xs font-semibold rounded-xl border border-red-200">Log Out</button>
+        <button onclick="logoutProfile()" class="w-full py-3 bg-red-50 text-red-600 text-xs font-semibold rounded-xl border border-red-200">Log Out</button>
       </div>
     </div>
 
-    <!-- TAB 6: COMMUNITY -->
+    <!-- TAB 6: COMMUNITY FEED WITH PHOTO & COMMENT SYSTEM -->
     <div id="tab-community" class="p-4 space-y-4 hidden">
       <div class="flex items-center justify-between">
         <h2 class="font-serif text-xl font-bold text-[#152D3B]">Community Feed</h2>
@@ -297,7 +285,7 @@
       <div class="space-y-4" id="communityFeedContainer"></div>
     </div>
 
-    <!-- TAB 7: RATINGS & REVIEWS -->
+    <!-- TAB 7: REVIEWS -->
     <div id="tab-reviews" class="p-4 space-y-4 hidden">
       <div class="flex items-center justify-between">
         <h2 class="font-serif text-xl font-bold text-[#152D3B]">Ratings & Reviews</h2>
@@ -336,22 +324,7 @@
       </button>
     </nav>
 
-    <!-- MODALS -->
-    <!-- Search Modal -->
-    <div id="searchModal" class="fixed inset-0 bg-black/60 z-50 flex items-end justify-center hidden">
-      <div class="bg-[#FAF8F0] w-full max-w-md p-5 rounded-t-3xl space-y-3">
-        <div class="flex justify-between items-center border-b pb-2">
-          <span class="text-xs font-bold text-[#195C40]">Search Books (Multi-Source API)</span>
-          <button onclick="closeSearchModal()" class="p-1 rounded-full bg-gray-200">✕</button>
-        </div>
-        <div class="flex space-x-2">
-          <input type="text" id="searchInput" placeholder="Search title, author or ISBN..." class="w-full text-xs p-3 bg-white border rounded-xl outline-none" />
-          <button onclick="executeSearch()" class="bg-[#195C40] text-white px-4 py-3 rounded-xl text-xs font-semibold">Search</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Scanner Camera Modal -->
+    <!-- SCANNER MODAL -->
     <div id="scannerModal" class="fixed inset-0 bg-black/90 z-50 flex flex-col justify-between p-4 hidden">
       <div class="flex justify-between items-center text-white">
         <span class="text-xs font-bold text-emerald-400">Live Barcode & ISBN Scanner</span>
@@ -360,30 +333,55 @@
       <div class="w-full bg-black rounded-2xl overflow-hidden relative flex items-center justify-center">
         <div id="reader" style="width: 100%;"></div>
       </div>
-      <p class="text-white text-[11px] text-center opacity-80">Point camera at book barcode to fetch details automatically.</p>
+      <p class="text-white text-[11px] text-center opacity-80">Point camera at barcode to fetch details.</p>
     </div>
 
-    <!-- Book Detail Modal -->
+    <!-- HIGH-DETAIL BOOK MODAL -->
     <div id="detailModal" class="fixed inset-0 bg-black/60 z-50 flex items-end justify-center hidden">
       <div class="bg-[#FAF8F0] w-full max-w-md p-5 rounded-t-3xl space-y-3 max-h-[85vh] overflow-y-auto">
         <div class="flex justify-between items-center border-b pb-2">
-          <span id="dSource" class="text-xs font-bold text-[#195C40]">Open Library</span>
+          <span id="dSource" class="text-xs font-bold text-[#195C40]">Source: Live API</span>
           <button onclick="closeDetailModal()" class="p-1 rounded-full bg-gray-200">✕</button>
         </div>
+        
         <div class="flex space-x-4">
-          <img id="dCover" class="w-24 h-36 object-cover rounded-xl shadow-md" />
-          <div class="space-y-1">
-            <h3 id="dTitle" class="font-serif font-bold text-base"></h3>
-            <p id="dAuthor" class="text-xs text-gray-600"></p>
-            <p id="dIsbn" class="text-[10px] text-gray-400"></p>
+          <img id="dCover" class="w-24 h-36 object-cover rounded-xl shadow-md border" />
+          <div class="space-y-1 text-xs">
+            <h3 id="dTitle" class="font-serif font-bold text-base leading-tight"></h3>
+            <p id="dAuthor" class="text-gray-700 font-medium"></p>
+            <p id="dPublisher" class="text-[11px] text-gray-500"></p>
+            <p id="dPubDate" class="text-[10px] text-gray-400"></p>
+            <p id="dCategory" class="text-[10px] font-bold text-[#195C40] bg-[#E8F5E9] inline-block px-2 py-0.5 rounded-full"></p>
             <div class="flex items-center space-x-1 pt-1">
               <span class="text-amber-500">★</span>
-              <span id="dRating" class="text-xs font-bold">4.8</span>
+              <span id="dRating" class="font-bold">4.8</span>
             </div>
           </div>
         </div>
-        <p id="dDesc" class="text-xs bg-white p-3 rounded-xl border border-gray-200 leading-relaxed"></p>
+
+        <div class="bg-white p-3 rounded-2xl border border-gray-200 text-xs space-y-1">
+          <h4 class="font-bold text-[#195C40]">Book Summary / Information:</h4>
+          <p id="dDesc" class="text-gray-600 leading-relaxed text-[11px] max-h-40 overflow-y-auto"></p>
+        </div>
+
         <button onclick="saveBookToLibrary()" class="w-full py-3 bg-[#195C40] text-white text-xs font-semibold rounded-xl shadow-sm">Save to My Library</button>
+      </div>
+    </div>
+
+    <!-- POST CREATION MODAL WITH IMAGE ATTACHMENT -->
+    <div id="postModal" class="fixed inset-0 bg-black/60 z-50 flex items-end justify-center hidden">
+      <div class="bg-[#FAF8F0] w-full max-w-md p-5 rounded-t-3xl space-y-3">
+        <div class="flex justify-between items-center border-b pb-2">
+          <span class="text-xs font-bold text-[#195C40]">Create Community Post</span>
+          <button onclick="closePostModal()" class="p-1 rounded-full bg-gray-200">✕</button>
+        </div>
+        <textarea id="postContent" placeholder="Share what you are reading or thinking..." class="w-full p-3 text-xs bg-white border rounded-xl outline-none h-24"></textarea>
+        <div>
+          <label for="postImageInput" class="cursor-pointer bg-gray-100 px-3 py-2 rounded-xl text-xs font-medium inline-block">📸 Attach Photo</label>
+          <input type="file" id="postImageInput" accept="image/*" class="hidden" onchange="previewPostImg(event)" />
+          <img id="postImgPreview" class="w-full h-32 object-cover rounded-xl mt-2 hidden" />
+        </div>
+        <button onclick="submitCommunityPost()" class="w-full py-3 bg-[#195C40] text-white text-xs font-semibold rounded-xl shadow-sm">Post to Community</button>
       </div>
     </div>
 
@@ -391,21 +389,18 @@
 
   <script>
     let trendingBooks = [
-      { id: "1", title: "Atomic Habits", author: "James Clear", rating: 4.6, reviews: "12.3K", cover: "https://covers.openlibrary.org/b/id/12843865-L.jpg", isbn: "9780735211292", desc: "An Easy & Proven Way to Build Good Habits & Break Bad Ones." },
-      { id: "2", title: "Ikigai", author: "Héctor García", rating: 4.4, reviews: "8.1K", cover: "https://covers.openlibrary.org/b/id/10522079-L.jpg", isbn: "9780143130727", desc: "The Japanese Secret to a Long and Happy Life." },
-      { id: "3", title: "Sapiens", author: "Yuval Noah Harari", rating: 4.5, reviews: "15.2K", cover: "https://covers.openlibrary.org/b/id/12547148-L.jpg", isbn: "9780062316097", desc: "A Brief History of Humankind." },
-      { id: "4", title: "The Psychology of Money", author: "Morgan Housel", rating: 4.4, reviews: "9.7K", cover: "https://covers.openlibrary.org/b/id/10543216-L.jpg", isbn: "9780857197689", desc: "Timeless lessons on wealth, greed, and happiness." },
-      { id: "5", title: "The 5 AM Club", author: "Robin Sharma", rating: 4.3, reviews: "7.1K", cover: "https://covers.openlibrary.org/b/id/8885148-L.jpg", isbn: "9781443456623", desc: "Own Your Morning. Elevate Your Life." }
+      { id: "1", title: "Atomic Habits", author: "James Clear", rating: "4.8", publisher: "Avery", pubDate: "2018", category: "Self-Help", cover: "https://covers.openlibrary.org/b/id/12843865-L.jpg", isbn: "9780735211292", desc: "An Easy & Proven Way to Build Good Habits & Break Bad Ones." },
+      { id: "2", title: "Ikigai", author: "Héctor García", rating: "4.6", publisher: "Penguin", pubDate: "2017", category: "Philosophy", cover: "https://covers.openlibrary.org/b/id/10522079-L.jpg", isbn: "9780143130727", desc: "The Japanese Secret to a Long and Happy Life." },
+      { id: "3", title: "Sapiens", author: "Yuval Noah Harari", rating: "4.7", publisher: "Harper", pubDate: "2015", category: "History", cover: "https://covers.openlibrary.org/b/id/12547148-L.jpg", isbn: "9780062316097", desc: "A Brief History of Humankind." },
+      { id: "4", title: "Psychology of Money", author: "Morgan Housel", rating: "4.7", publisher: "Harriman House", pubDate: "2020", category: "Finance", cover: "https://covers.openlibrary.org/b/id/10543216-L.jpg", isbn: "9780857197689", desc: "Timeless lessons on wealth, greed, and happiness." }
     ];
 
     let discussions = [
-      { id: 1, title: "Best chapter in Atomic Habits?", author: "Aarav M.", replies: 14, tag: "Self Help" },
-      { id: 2, title: "Finding your Ikigai discussion group", author: "Priya S.", replies: 28, tag: "Philosophy" }
+      { id: 1, title: "Best chapter in Atomic Habits?", author: "Aarav M.", replies: 14, tag: "Self Help" }
     ];
 
     let reviewsList = [
-      { id: 1, book: "Atomic Habits", user: "Shivadas", rating: 5, text: "Completely changed how I look at daily routines." },
-      { id: 2, book: "Sapiens", user: "Rahul K.", rating: 5, text: "Mind-blowing perspective on human evolution." }
+      { id: 1, book: "Atomic Habits", user: "Shivadas", rating: 5, text: "Completely changed how I look at daily routines." }
     ];
 
     let notesList = [
@@ -413,10 +408,11 @@
     ];
 
     let communityPosts = [
-      { id: 1, user: "Sneha R.", content: "Just finished reading 'The Psychology of Money'. Highly recommend chapter 3!", likes: 24, comments: 5 }
+      { id: 1, user: "Sneha R.", content: "Just finished reading 'The Psychology of Money'. Highly recommend!", image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80", likes: 24, comments: ["Great book!", "Agreed, chapter 3 was amazing."] }
     ];
 
-    let blockedUsers = [];
+    let uploadedAvatarBase64 = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80";
+    let tempPostImgBase64 = null;
     let activeBook = null;
     let html5QrCode = null;
 
@@ -429,6 +425,125 @@
       renderCommunity();
       checkAuth();
     };
+
+    function focusSearch() {
+      document.getElementById('googleSearchBar').focus();
+    }
+
+    function previewPhoto(event) {
+      const file = event.target.files[0];
+      if(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedAvatarBase64 = e.target.result;
+          document.getElementById('avatarPreview').src = uploadedAvatarBase64;
+          document.getElementById('headerUserAvatar').src = uploadedAvatarBase64;
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+    function previewPostImg(event) {
+      const file = event.target.files[0];
+      if(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          tempPostImgBase64 = e.target.result;
+          const imgEl = document.getElementById('postImgPreview');
+          imgEl.src = tempPostImgBase64;
+          imgEl.classList.remove('hidden');
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    async function handleSearchTyping() {
+      const query = document.getElementById('googleSearchBar').value.trim();
+      const suggestionsContainer = document.getElementById('searchSuggestions');
+      if(query.length < 2) {
+        suggestionsContainer.classList.add('hidden');
+        return;
+      }
+
+      try {
+        const gRes = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=4`);
+        const gData = await gRes.json();
+        if(gData.items && gData.items.length > 0) {
+          suggestionsContainer.innerHTML = gData.items.map(item => {
+            const info = item.volumeInfo;
+            const img = info.imageLinks ? info.imageLinks.thumbnail : trendingBooks[0].cover;
+            return `
+              <div onclick="selectSearchResult('${encodeURIComponent(JSON.stringify(info))}')" class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded-xl cursor-pointer">
+                <img src="${img}" class="w-8 h-10 object-cover rounded-md" />
+                <div class="truncate">
+                  <h4 class="font-bold text-xs truncate">${info.title}</h4>
+                  <p class="text-[10px] text-gray-500">${info.authors ? info.authors[0] : 'Author'}</p>
+                </div>
+              </div>
+            `;
+          }).join('');
+          suggestionsContainer.classList.remove('hidden');
+        }
+      } catch(e){}
+    }
+
+    function triggerQuickSearch() {
+      const q = document.getElementById('googleSearchBar').value.trim();
+      if(q) fetchBookByQuery(q);
+    }
+
+    function selectSearchResult(jsonStr) {
+      document.getElementById('searchSuggestions').classList.add('hidden');
+      const info = JSON.parse(decodeURIComponent(jsonStr));
+      openBookDetail({
+        title: info.title,
+        author: info.authors ? info.authors.join(', ') : "Author",
+        publisher: info.publisher || "Publisher N/A",
+        pubDate: info.publishedDate || "N/A",
+        category: info.categories ? info.categories[0] : "General",
+        rating: info.averageRating || "4.6",
+        cover: info.imageLinks ? info.imageLinks.thumbnail : trendingBooks[0].cover,
+        isbn: info.industryIdentifiers ? info.industryIdentifiers[0].identifier : "N/A",
+        desc: info.description || "Live description retrieved."
+      });
+    }
+
+    async function fetchBookByQuery(query) {
+      try {
+        const gRes = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`);
+        const gData = await gRes.json();
+        if(gData.items && gData.items.length > 0) {
+          const info = gData.items[0].volumeInfo;
+          openBookDetail({
+            title: info.title,
+            author: info.authors ? info.authors.join(', ') : "Unknown",
+            publisher: info.publisher || "Publisher N/A",
+            pubDate: info.publishedDate || "N/A",
+            category: info.categories ? info.categories[0] : "General",
+            rating: info.averageRating || "4.5",
+            cover: info.imageLinks ? info.imageLinks.thumbnail : trendingBooks[0].cover,
+            isbn: query,
+            desc: info.description || "Retrieved live via API."
+          });
+          return;
+        }
+        alert("No exact match found. Try another title or ISBN.");
+      } catch(e) { alert("Network error during API search."); }
+    }
+
+    function openBookDetail(b) {
+      activeBook = b;
+      document.getElementById('dTitle').innerText = b.title;
+      document.getElementById('dAuthor').innerText = "By " + b.author;
+      document.getElementById('dPublisher').innerText = "Publisher: " + (b.publisher || "N/A");
+      document.getElementById('dPubDate').innerText = "Date: " + (b.pubDate || "N/A");
+      document.getElementById('dCategory').innerText = b.category || "General";
+      document.getElementById('dCover').src = b.cover;
+      document.getElementById('dRating').innerText = b.rating;
+      document.getElementById('dDesc').innerText = b.desc;
+      document.getElementById('detailModal').classList.remove('hidden');
+    }
+
+    function closeDetailModal() { document.getElementById('detailModal').classList.add('hidden'); }
 
     function switchTab(tabName) {
       ['home', 'explore', 'chats', 'library', 'profile', 'community', 'reviews'].forEach(t => {
@@ -458,7 +573,6 @@
             <div class="flex items-center space-x-1 mt-1">
               <span class="text-amber-500 text-xs">★</span>
               <span class="text-[10px] font-bold">${b.rating}</span>
-              <span class="text-[9px] text-gray-400">(${b.reviews})</span>
             </div>
           </div>
         </div>
@@ -515,77 +629,69 @@
     function renderCommunity() {
       const container = document.getElementById('communityFeedContainer');
       container.innerHTML = communityPosts.map(p => `
-        <div class="bg-white p-4 rounded-2xl border border-blue-100 shadow-sm space-y-2">
-          <div class="flex items-center space-x-2"><div class="w-7 h-7 rounded-full bg-[#195C40] text-white flex items-center justify-center font-bold text-xs">${p.user[0]}</div><span class="font-bold text-xs">${p.user}</span></div>
+        <div class="bg-white p-4 rounded-2xl border border-blue-100 shadow-sm space-y-3">
+          <div class="flex items-center space-x-2">
+            <div class="w-7 h-7 rounded-full bg-[#195C40] text-white flex items-center justify-center font-bold text-xs">${p.user[0]}</div>
+            <span class="font-bold text-xs">${p.user}</span>
+          </div>
           <p class="text-xs text-gray-800">${p.content}</p>
-          <div class="flex space-x-4 text-xs text-gray-500 pt-1 border-t">
-            <button onclick="likePost(${p.id})">👍 Like (${p.likes})</button>
-            <button>💬 Comment (${p.comments})</button>
+          ${p.image ? `<img src="${p.image}" class="w-full h-44 object-cover rounded-xl border" />` : ''}
+          
+          <div class="space-y-2 pt-2 border-t">
+            <div class="flex justify-between text-xs text-gray-500">
+              <button onclick="likePost(${p.id})">👍 Like (${p.likes})</button>
+              <span>💬 ${p.comments.length} Comments</span>
+            </div>
+            
+            <!-- Comment Section -->
+            <div class="bg-gray-50 p-2.5 rounded-xl space-y-1.5 text-xs">
+              ${p.comments.map(c => `<p class="text-[11px] text-gray-700 bg-white p-1.5 rounded-lg border border-gray-100">💬 ${c}</p>`).join('')}
+              <div class="flex space-x-2 pt-1">
+                <input type="text" id="commentInput-${p.id}" placeholder="Write a comment..." class="w-full text-[11px] p-1.5 bg-white border rounded-lg outline-none" />
+                <button onclick="addComment(${p.id})" class="bg-[#195C40] text-white text-[10px] px-2.5 py-1 rounded-lg font-semibold">Send</button>
+              </div>
+            </div>
           </div>
         </div>
       `).join('');
     }
 
-    async function fetchBookByQuery(query) {
-      try {
-        const res = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${query}&format=json&jscmd=data`);
-        const data = await res.json();
-        const key = `ISBN:${query}`;
-        if(data[key]) {
-          const b = data[key];
-          openBookDetail({
-            title: b.title,
-            author: b.authors ? b.authors[0].name : "Unknown",
-            rating: 4.7,
-            reviews: "1.1K",
-            cover: b.cover ? b.cover.large : trendingBooks[0].cover,
-            isbn: query,
-            desc: b.notes || "Retrieved live via Open Library API."
-          });
-          return;
+    function addComment(postId) {
+      const input = document.getElementById(`commentInput-${postId}`);
+      if(input && input.value.trim()) {
+        const post = communityPosts.find(p => p.id === postId);
+        if(post) {
+          post.comments.push(input.value.trim());
+          renderCommunity();
         }
-
-        const gRes = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`);
-        const gData = await gRes.json();
-        if(gData.items && gData.items.length > 0) {
-          const info = gData.items[0].volumeInfo;
-          openBookDetail({
-            title: info.title,
-            author: info.authors ? info.authors.join(', ') : "Unknown",
-            rating: info.averageRating || 4.6,
-            reviews: info.ratingsCount || 500,
-            cover: info.imageLinks ? info.imageLinks.thumbnail : trendingBooks[0].cover,
-            isbn: query,
-            desc: info.description || "Retrieved live via Google Books API."
-          });
-          return;
-        }
-        alert("Book not found. Try another ISBN or title.");
-      } catch(e) {
-        alert("Network error during API fetch.");
       }
     }
 
-    function openBookDetail(b) {
-      activeBook = b;
-      document.getElementById('dTitle').innerText = b.title;
-      document.getElementById('dAuthor').innerText = b.author;
-      document.getElementById('dCover').src = b.cover;
-      document.getElementById('dIsbn').innerText = 'ISBN: ' + b.isbn;
-      document.getElementById('dRating').innerText = b.rating;
-      document.getElementById('dDesc').innerText = b.desc;
-      document.getElementById('detailModal').classList.remove('hidden');
+    function likePost(id) {
+      const p = communityPosts.find(x => x.id === id);
+      if(p) { p.likes++; renderCommunity(); }
     }
 
-    function closeDetailModal() {
-      document.getElementById('detailModal').classList.add('hidden');
-    }
+    function openNewPostModal() { document.getElementById('postModal').classList.remove('hidden'); }
+    function closePostModal() { document.getElementById('postModal').classList.add('hidden'); }
 
-    function openSearchModal() { document.getElementById('searchModal').classList.remove('hidden'); }
-    function closeSearchModal() { document.getElementById('searchModal').classList.add('hidden'); }
-    function executeSearch() {
-      const q = document.getElementById('searchInput').value.trim();
-      if(q) { closeSearchModal(); fetchBookByQuery(q); }
+    function submitCommunityPost() {
+      const text = document.getElementById('postContent').value.trim();
+      if(text) {
+        communityPosts.unshift({
+          id: Date.now(),
+          user: "Shivadas",
+          content: text,
+          image: tempPostImgBase64,
+          likes: 0,
+          comments: []
+        });
+        tempPostImgBase64 = null;
+        document.getElementById('postContent').value = '';
+        document.getElementById('postImgPreview').classList.add('hidden');
+        closePostModal();
+        renderCommunity();
+      }
     }
 
     function startScanner() {
@@ -611,7 +717,7 @@
       const email = document.getElementById('authEmail').value;
       if(!name || !email) { alert("Please fill name and email."); return; }
       
-      localStorage.setItem('nijok_user', JSON.stringify({ name, username, email }));
+      localStorage.setItem('nijok_user', JSON.stringify({ name, username, email, photo: uploadedAvatarBase64 }));
       checkAuth();
     }
 
@@ -624,6 +730,10 @@
         document.getElementById('profNameDisplay').innerText = u.name;
         document.getElementById('profUsernameDisplay').innerText = '@' + (u.username || 'reader');
         document.getElementById('profEmailDisplay').innerText = u.email;
+        if(u.photo) {
+          document.getElementById('profAvatar').src = u.photo;
+          document.getElementById('headerUserAvatar').src = u.photo;
+        }
       } else {
         document.getElementById('authSection').classList.remove('hidden');
         document.getElementById('profileDashboard').classList.add('hidden');
@@ -635,11 +745,6 @@
       checkAuth();
     }
 
-    function blockSampleUser() {
-      blockedUsers.push("Spammer_99");
-      document.getElementById('blockedList').innerText = "Blocked: Spammer_99";
-    }
-
     function saveBookToLibrary() {
       if(activeBook) {
         notesList.push({ id: Date.now(), title: activeBook.title, text: "Added to reading list.", tag: "Library" });
@@ -647,11 +752,6 @@
         switchTab('library');
         renderNotes();
       }
-    }
-
-    function likePost(id) {
-      const p = communityPosts.find(x => x.id === id);
-      if(p) { p.likes++; renderCommunity(); }
     }
 
     function openNewNoteModal() {
@@ -669,14 +769,6 @@
       if(title) {
         discussions.unshift({ id: Date.now(), title, author: "You", replies: 1, tag: tag || "General" });
         renderDiscussions();
-      }
-    }
-
-    function openNewPostModal() {
-      const content = prompt("What's on your mind about books?");
-      if(content) {
-        communityPosts.unshift({ id: Date.now(), user: "You", content, likes: 0, comments: 0 });
-        renderCommunity();
       }
     }
 
